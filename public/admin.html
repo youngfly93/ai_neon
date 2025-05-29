@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理面板 - AI NEON'world</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-effects">
+        <div class="neon-grid"></div>
+        <div class="floating-particles"></div>
+    </div>
+
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="/" class="back-btn">
+                    <span>←</span> 返回主页
+                </a>
+                <h1 class="admin-title">
+                    <span class="neon-text">管理面板</span>
+                </h1>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <!-- 主题管理区域 -->
+            <section class="admin-section">
+                <div class="section-header">
+                    <h2 class="section-title">主题管理</h2>
+                    <button class="add-btn" id="addThemeBtn">
+                        <span>+</span> 添加主题
+                    </button>
+                </div>
+                
+                <div class="loading hidden" id="themesLoading">
+                    <div class="loading-spinner"></div>
+                    <p>加载中...</p>
+                </div>
+
+                <div class="admin-grid" id="themesAdminGrid">
+                    <!-- 主题管理卡片将在这里动态生成 -->
+                </div>
+            </section>
+
+            <!-- 图片管理区域 -->
+            <section class="admin-section" id="imageManagementSection" style="display: none;">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        图片管理 - <span id="currentThemeName"></span>
+                    </h2>
+                    <div class="action-buttons">
+                        <button class="upload-btn" id="uploadImagesBtn">
+                            <span>📤</span> 上传图片
+                        </button>
+                        <button class="back-btn" id="backToThemesBtn">
+                            返回主题
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="upload-area hidden" id="uploadArea">
+                    <div class="upload-box">
+                        <div class="upload-icon">📁</div>
+                        <p>拖拽图片到这里或点击选择文件</p>
+                        <input type="file" id="imageInput" multiple accept="image/*" style="display: none;">
+                        <button class="select-files-btn" id="selectFilesBtn">选择文件</button>
+                    </div>
+                    <div class="upload-progress hidden" id="uploadProgress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <p id="progressText">上传中...</p>
+                    </div>
+                </div>
+                
+                <div class="loading hidden" id="imagesLoading">
+                    <div class="loading-spinner"></div>
+                    <p>加载中...</p>
+                </div>
+
+                <div class="admin-grid" id="imagesAdminGrid">
+                    <!-- 图片管理卡片将在这里动态生成 -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 添加主题模态框 -->
+    <div class="modal hidden" id="addThemeModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeAddThemeModal">&times;</span>
+            <h3>添加新主题</h3>
+            <form id="addThemeForm">
+                <div class="form-group">
+                    <label for="themeNameInput">主题名称</label>
+                    <input type="text" id="themeNameInput" placeholder="请输入主题名称" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="cancel-btn" id="cancelAddTheme">取消</button>
+                    <button type="submit" class="confirm-btn">创建主题</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 确认删除模态框 -->
+    <div class="modal hidden" id="confirmDeleteModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeConfirmModal">&times;</span>
+            <h3>确认删除</h3>
+            <p id="deleteMessage">确定要删除这个项目吗？此操作不可撤销。</p>
+            <div class="form-actions">
+                <button type="button" class="cancel-btn" id="cancelDelete">取消</button>
+                <button type="button" class="danger-btn" id="confirmDelete">确认删除</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 消息提示 -->
+    <div class="toast hidden" id="toast">
+        <div class="toast-content">
+            <span class="toast-icon" id="toastIcon">✓</span>
+            <span class="toast-message" id="toastMessage">操作成功</span>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 AI NEON'world. 霓虹创意无限.</p>
+        </div>
+    </footer>
+
+    <script src="/js/admin.js"></script>
+    <script src="/js/background.js"></script>
+</body>
+</html> 

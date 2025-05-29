@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>主题详情 - AI NEON'world</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-effects">
+        <div class="neon-grid"></div>
+        <div class="floating-particles"></div>
+    </div>
+
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="/" class="back-btn">
+                    <span>←</span> 返回主页
+                </a>
+                <h1 class="theme-title" id="themeTitle">主题名称</h1>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="gallery-header">
+                <div class="theme-info">
+                    <h2 class="section-title" id="themeName">加载中...</h2>
+                    <div class="image-count">
+                        <span id="imageCount">0</span> 张图片
+                    </div>
+                </div>
+            </div>
+            
+            <div class="loading" id="loading">
+                <div class="loading-spinner"></div>
+                <p>加载中...</p>
+            </div>
+
+            <div class="images-grid" id="imagesGrid">
+                <!-- 图片将在这里动态生成 -->
+            </div>
+        </div>
+    </main>
+
+    <!-- 图片查看器模态框 -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">&times;</span>
+            <img class="modal-image" id="modalImage" src="" alt="">
+            <div class="modal-nav">
+                <button class="nav-btn prev-btn" id="prevBtn">‹</button>
+                <button class="nav-btn next-btn" id="nextBtn">›</button>
+            </div>
+            <div class="image-info">
+                <p class="image-name" id="imageName"></p>
+                <p class="image-counter">
+                    <span id="currentIndex">1</span> / <span id="totalImages">1</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 AI NEON'world. 霓虹创意无限.</p>
+        </div>
+    </footer>
+
+    <script src="/js/theme.js"></script>
+    <script src="/js/background.js"></script>
+</body>
+</html> 

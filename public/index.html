@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI NEON'world - 霓虹画廊</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-effects">
+        <div class="neon-grid"></div>
+        <div class="floating-particles"></div>
+    </div>
+
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <h1 class="logo">
+                    <span class="neon-text">AI NEON</span>
+                    <span class="world-text">'world</span>
+                </h1>
+                <a href="/admin" class="admin-link">
+                    <span>⚙️</span> 管理面板
+                </a>
+            </div>
+            <p class="subtitle">探索无限创意的霓虹画廊</p>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="gallery-header">
+                <h2 class="section-title">创意主题</h2>
+                <div class="theme-count">
+                    <span id="themeCount">0</span> 个主题
+                </div>
+            </div>
+            
+            <div class="loading" id="loading">
+                <div class="loading-spinner"></div>
+                <p>加载中...</p>
+            </div>
+
+            <div class="themes-grid" id="themesGrid">
+                <!-- 主题卡片将在这里动态生成 -->
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 AI NEON'world. 霓虹创意无限.</p>
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/background.js"></script>
+</body>
+</html> 
