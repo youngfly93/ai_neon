@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    container_name: ai-neon-world
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/usr/src/app/data
+      - ./public/backgrounds:/usr/src/app/public/backgrounds
+      - ./custom_themes:/usr/src/app/custom_themes
+    environment:
+      - NODE_ENV=production 

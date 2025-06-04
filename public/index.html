@@ -20,9 +20,28 @@
                     <span class="neon-text">AI NEON</span>
                     <span class="world-text">'world</span>
                 </h1>
-                <a href="/admin" class="admin-link">
-                    <span>⚙️</span> 管理面板
-                </a>
+                <div class="header-actions">
+                    <!-- 访客模式：只显示管理员验证入口 -->
+                    <a id="adminPanelBtn" href="/admin-panel" class="admin-panel-btn">
+                        <span>🔐</span> 管理员验证
+                    </a>
+
+                    <!-- 管理员模式：显示完整管理功能 -->
+                    <div id="adminStatus" class="admin-status hidden">
+                        <span class="admin-indicator">👑 管理员模式</span>
+                        <button id="adminLogoutBtn" class="admin-logout-btn">退出管理</button>
+                    </div>
+
+                    <!-- 管理员模式下的管理链接 -->
+                    <div id="adminLinks" class="admin-links hidden">
+                        <a href="/admin" class="admin-link">
+                            <span>⚙️</span> 系统管理
+                        </a>
+                        <a href="/login" class="admin-link">
+                            <span>🔑</span> 用户管理
+                        </a>
+                    </div>
+                </div>
             </div>
             <p class="subtitle">探索无限创意的霓虹画廊</p>
         </div>
@@ -54,6 +73,7 @@
         </div>
     </footer>
 
+    <script src="/js/auth.js"></script>
     <script src="/js/main.js"></script>
     <script src="/js/background.js"></script>
 </body>

@@ -1,4 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // 检查用户是否登录且为管理员
+    if (window.Auth && typeof window.Auth.requireAdmin === 'function') {
+        // 如果用户不是管理员，Auth.requireAdmin会自动重定向
+        if (!window.Auth.requireAdmin()) {
+            return; // 终止执行剩余代码
+        }
+    }
+
     // DOM 元素
     const themesLoading = document.getElementById('themesLoading');
     const themesAdminGrid = document.getElementById('themesAdminGrid');
@@ -46,6 +54,12 @@ document.addEventListener('DOMContentLoaded', function() {
     function init() {
         loadThemes();
         setupEventListeners();
+        
+        // 显示用户信息
+        if (window.Auth && window.Auth.getCurrentUser()) {
+            const user = window.Auth.getCurrentUser();
+            showToast(`欢迎管理员: ${user.username || '管理员'}`, 'success');
+        }
     }
 
     function setupEventListeners() {
@@ -86,7 +100,11 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             showLoading(themesLoading, true);
             
-            const response = await fetch('/api/themes');
+            const response = await fetch('/api/themes', {
+                headers: getAuthHeaders(),
+                credentials: 'include'
+            });
+            
             if (!response.ok) {
                 throw new Error('Failed to fetch themes');
             }
@@ -100,6 +118,15 @@ document.addEventListener('DOMContentLoaded', function() {
         } finally {
             showLoading(themesLoading, false);
         }
+    }
+
+    // 获取认证头
+    function getAuthHeaders() {
+        const token = localStorage.getItem('token');
+        return {
+            'Authorization': token ? `Bearer ${token}` : '',
+            'Content-Type': 'application/json'
+        };
     }
 
     // 显示主题
@@ -155,7 +182,11 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             showLoading(imagesLoading, true);
             
-            const response = await fetch(`/api/themes/${encodeURIComponent(themeName)}/images`);
+            const response = await fetch(`/api/themes/${encodeURIComponent(themeName)}/images`, {
+                headers: getAuthHeaders(),
+                credentials: 'include'
+            });
+            
             if (!response.ok) {
                 throw new Error('Failed to fetch images');
             }
@@ -230,95 +261,99 @@ document.addEventListener('DOMContentLoaded', function() {
     async function handleAddTheme(e) {
         e.preventDefault();
         
-        const name = themeNameInput.value.trim();
-        if (!name) {
+        const themeName = themeNameInput.value.trim();
+        if (!themeName) {
             showToast('请输入主题名称', 'error');
             return;
         }
         
         try {
+            hideModal(addThemeModal);
+            showToast('正在创建主题...', 'info');
+            
             const response = await fetch('/api/themes', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ name })
+                headers: getAuthHeaders(),
+                credentials: 'include',
+                body: JSON.stringify({ name: themeName })
             });
             
-            const result = await response.json();
+            const data = await response.json();
             
-            if (result.success) {
-                showToast(result.message, 'success');
-                hideModal(addThemeModal);
-                themeNameInput.value = '';
-                loadThemes(); // 重新加载主题列表
-            } else {
-                showToast(result.error || '创建主题失败', 'error');
+            if (!response.ok) {
+                throw new Error(data.error || 'Failed to create theme');
             }
+            
+            loadThemes();
+            showToast('主题创建成功');
+            themeNameInput.value = '';
+            
         } catch (error) {
-            console.error('Error adding theme:', error);
-            showToast('创建主题失败', 'error');
+            console.error('Error creating theme:', error);
+            showToast(error.message || '创建主题失败', 'error');
         }
     }
 
     // 删除主题
     window.deleteTheme = function(themeName) {
-        deleteAction = {
-            type: 'theme',
-            name: themeName
+        deleteAction = async () => {
+            try {
+                const response = await fetch(`/api/themes/${encodeURIComponent(themeName)}`, {
+                    method: 'DELETE',
+                    headers: getAuthHeaders(),
+                    credentials: 'include'
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to delete theme');
+                }
+                
+                loadThemes();
+                showToast('主题删除成功');
+            } catch (error) {
+                console.error('Error deleting theme:', error);
+                showToast('删除主题失败', 'error');
+            }
         };
-        deleteMessage.textContent = `确定要删除主题 "${themeName}" 吗？这将删除该主题下的所有图片，此操作不可撤销。`;
+        
+        deleteMessage.textContent = `确定要删除主题 "${themeName}" 吗？该操作无法撤销。`;
         showModal(confirmDeleteModal);
     };
 
     // 删除图片
-    window.deleteImage = function(imageName) {
-        deleteAction = {
-            type: 'image',
-            themeName: currentThemeForImages,
-            imageName: imageName
+    window.deleteImage = function(imagePath) {
+        const themeName = currentThemeForImages;
+        const imageName = imagePath.split('/').pop();
+        
+        deleteAction = async () => {
+            try {
+                const response = await fetch(`/api/themes/${encodeURIComponent(themeName)}/images/${encodeURIComponent(imageName)}`, {
+                    method: 'DELETE',
+                    headers: getAuthHeaders(),
+                    credentials: 'include'
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to delete image');
+                }
+                
+                loadImages(themeName);
+                showToast('图片删除成功');
+            } catch (error) {
+                console.error('Error deleting image:', error);
+                showToast('删除图片失败', 'error');
+            }
         };
-        deleteMessage.textContent = `确定要删除图片 "${imageName}" 吗？此操作不可撤销。`;
+        
+        deleteMessage.textContent = `确定要删除图片 "${imageName}" 吗？该操作无法撤销。`;
         showModal(confirmDeleteModal);
     };
 
-    // 执行删除
+    // 执行删除操作
     async function executeDelete() {
-        if (!deleteAction) return;
-        
-        try {
-            let url, successMessage;
-            
-            if (deleteAction.type === 'theme') {
-                url = `/api/themes/${encodeURIComponent(deleteAction.name)}`;
-                successMessage = '主题删除成功';
-            } else if (deleteAction.type === 'image') {
-                url = `/api/themes/${encodeURIComponent(deleteAction.themeName)}/images/${encodeURIComponent(deleteAction.imageName)}`;
-                successMessage = '图片删除成功';
-            }
-            
-            const response = await fetch(url, {
-                method: 'DELETE'
-            });
-            
-            const result = await response.json();
-            
-            if (result.success) {
-                showToast(successMessage, 'success');
-                hideModal(confirmDeleteModal);
-                
-                if (deleteAction.type === 'theme') {
-                    loadThemes();
-                } else if (deleteAction.type === 'image') {
-                    loadImages(currentThemeForImages);
-                }
-            } else {
-                showToast(result.error || '删除失败', 'error');
-            }
-        } catch (error) {
-            console.error('Error deleting:', error);
-            showToast('删除失败', 'error');
-        } finally {
+        if (typeof deleteAction === 'function') {
+            hideModal(confirmDeleteModal);
+            await deleteAction();
             deleteAction = null;
         }
     }
@@ -425,7 +460,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // 工具函数
     function showModal(modal) {
         modal.classList.remove('hidden');
         modal.style.display = 'block';

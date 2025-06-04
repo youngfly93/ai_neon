@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const imageCount = document.getElementById('imageCount');
     const themeName = document.getElementById('themeName');
     const themeTitle = document.getElementById('themeTitle');
-    
+
     // 模态框元素
     const imageModal = document.getElementById('imageModal');
     const modalImage = document.getElementById('modalImage');
@@ -15,8 +15,30 @@ document.addEventListener('DOMContentLoaded', function() {
     const currentIndex = document.getElementById('currentIndex');
     const totalImages = document.getElementById('totalImages');
 
+    // 上传和管理元素
+    const uploadBtn = document.getElementById('uploadBtn');
+    const manageBtn = document.getElementById('manageBtn');
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const selectFilesBtn = document.getElementById('selectFilesBtn');
+    const uploadProgress = document.getElementById('uploadProgress');
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+
+    // 确认删除模态框
+    const confirmDeleteModal = document.getElementById('confirmDeleteModal');
+    const deleteMessage = document.getElementById('deleteMessage');
+    const cancelDelete = document.getElementById('cancelDelete');
+    const confirmDelete = document.getElementById('confirmDelete');
+
+    // 消息提示
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toastMessage');
+
     let currentImages = [];
     let currentImageIndex = 0;
+    let isManageMode = false;
+    let imageToDelete = null;
 
     // 从URL获取主题名称
     const pathParts = window.location.pathname.split('/');
@@ -24,6 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 初始化
     init();
+    setupEventListeners();
 
     async function init() {
         try {
@@ -33,6 +56,48 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error initializing theme page:', error);
             showError('加载失败，请刷新页面重试');
         }
+    }
+
+    function setupEventListeners() {
+        // 检查管理员权限
+        checkAdminPermissions();
+
+        // 上传按钮事件
+        uploadBtn.addEventListener('click', () => {
+            if (hasAdminPermission()) {
+                toggleUploadArea();
+            } else {
+                showAdminRequired();
+            }
+        });
+        selectFilesBtn.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', handleFileSelect);
+
+        // 管理按钮事件
+        manageBtn.addEventListener('click', () => {
+            if (hasAdminPermission()) {
+                toggleManageMode();
+            } else {
+                showAdminRequired();
+            }
+        });
+
+        // 拖拽上传事件
+        const uploadBox = uploadArea.querySelector('.upload-box');
+        uploadBox.addEventListener('dragover', handleDragOver);
+        uploadBox.addEventListener('dragleave', handleDragLeave);
+        uploadBox.addEventListener('drop', handleDrop);
+
+        // 确认删除模态框事件
+        cancelDelete.addEventListener('click', () => hideModal(confirmDeleteModal));
+        confirmDelete.addEventListener('click', handleConfirmDelete);
+
+        // 点击模态框背景关闭
+        confirmDeleteModal.addEventListener('click', function(e) {
+            if (e.target === confirmDeleteModal) {
+                hideModal(confirmDeleteModal);
+            }
+        });
     }
 
     function updatePageTitle(name) {
@@ -45,7 +110,11 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             showLoading(true);
             
-            const response = await fetch(`/api/themes/${encodeURIComponent(name)}/images`);
+            const response = await fetch(`/api/themes/${encodeURIComponent(name)}/images`, {
+                headers: getAuthHeaders(),
+                credentials: 'include'
+            });
+            
             if (!response.ok) {
                 throw new Error('Failed to fetch images');
             }
@@ -82,17 +151,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function createImageCard(image, index) {
         const card = document.createElement('div');
-        card.className = 'image-card';
+        card.className = 'image-card image-item';
         card.style.opacity = '0';
         card.style.transform = 'translateY(30px)';
-        
+        card.dataset.imagePath = image.path;
+
         card.innerHTML = `
             <img src="${image.url}" alt="${image.name}" class="image-thumbnail" loading="lazy">
         `;
 
         // 点击事件
-        card.addEventListener('click', () => {
-            openModal(index);
+        card.addEventListener('click', (e) => {
+            if (isManageMode) {
+                // 管理模式下点击删除按钮区域
+                const rect = card.getBoundingClientRect();
+                const clickX = e.clientX - rect.left;
+                const clickY = e.clientY - rect.top;
+
+                // 检查是否点击了右上角删除区域
+                if (clickX > rect.width - 40 && clickY < 40) {
+                    showDeleteConfirmation(image);
+                    return;
+                }
+            }
+
+            // 正常模式下打开模态框
+            if (!isManageMode) {
+                openModal(index);
+            }
         });
 
         // 图片加载错误处理
@@ -356,4 +442,233 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 300);
         }, 3000);
     };
-}); 
+
+    // 获取认证头
+    function getAuthHeaders() {
+        const token = localStorage.getItem('token');
+        return {
+            'Authorization': token ? `Bearer ${token}` : '',
+            'Content-Type': 'application/json'
+        };
+    }
+
+    // 上传和管理功能
+    function toggleUploadArea() {
+        uploadArea.classList.toggle('hidden');
+        if (!uploadArea.classList.contains('hidden')) {
+            uploadArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }
+
+    function toggleManageMode() {
+        isManageMode = !isManageMode;
+        const imageItems = document.querySelectorAll('.image-item');
+
+        if (isManageMode) {
+            manageBtn.textContent = '✓ 完成管理';
+            manageBtn.style.background = 'var(--secondary-neon)';
+            imageItems.forEach(item => item.classList.add('manage-mode'));
+        } else {
+            manageBtn.innerHTML = '<span>🗑️</span> 管理图片';
+            manageBtn.style.background = '';
+            imageItems.forEach(item => item.classList.remove('manage-mode'));
+        }
+    }
+
+    function handleFileSelect(e) {
+        const files = Array.from(e.target.files);
+        if (files.length > 0) {
+            uploadFiles(files);
+        }
+    }
+
+    function handleDragOver(e) {
+        e.preventDefault();
+        e.currentTarget.classList.add('dragover');
+    }
+
+    function handleDragLeave(e) {
+        e.preventDefault();
+        e.currentTarget.classList.remove('dragover');
+    }
+
+    function handleDrop(e) {
+        e.preventDefault();
+        e.currentTarget.classList.remove('dragover');
+
+        const files = Array.from(e.dataTransfer.files).filter(file =>
+            file.type.startsWith('image/')
+        );
+
+        if (files.length > 0) {
+            uploadFiles(files);
+        } else {
+            showToastMessage('请选择图片文件', 'error');
+        }
+    }
+
+    async function uploadFiles(files) {
+        if (files.length === 0) return;
+
+        if (!hasAdminPermission()) {
+            showAdminRequired();
+            return;
+        }
+
+        const formData = new FormData();
+        files.forEach(file => {
+            formData.append('images', file);
+        });
+
+        try {
+            showUploadProgress(true);
+
+            const response = await fetch(`/api/themes/${encodeURIComponent(currentThemeName)}/images`, {
+                method: 'POST',
+                headers: {
+                    'X-Admin-Key': getAdminKey()
+                },
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                showToastMessage(result.message, 'success');
+                await loadImages(currentThemeName);
+                uploadArea.classList.add('hidden');
+                fileInput.value = '';
+            } else {
+                showToastMessage(result.error || '上传失败', 'error');
+            }
+        } catch (error) {
+            console.error('Error uploading files:', error);
+            showToastMessage('上传失败', 'error');
+        } finally {
+            showUploadProgress(false);
+        }
+    }
+
+    function showUploadProgress(show) {
+        if (show) {
+            uploadProgress.classList.remove('hidden');
+            progressFill.style.width = '0%';
+            progressText.textContent = '上传中...';
+
+            // 模拟进度
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 30;
+                if (progress > 90) progress = 90;
+                progressFill.style.width = progress + '%';
+
+                if (progress >= 90) {
+                    clearInterval(interval);
+                }
+            }, 200);
+        } else {
+            progressFill.style.width = '100%';
+            progressText.textContent = '上传完成';
+            setTimeout(() => {
+                uploadProgress.classList.add('hidden');
+            }, 1000);
+        }
+    }
+
+    function showDeleteConfirmation(image) {
+        imageToDelete = image;
+        deleteMessage.textContent = `确定要删除图片 "${image.name}" 吗？此操作无法撤销。`;
+        showModal(confirmDeleteModal);
+    }
+
+    async function handleConfirmDelete() {
+        if (!imageToDelete) return;
+
+        if (!hasAdminPermission()) {
+            showAdminRequired();
+            hideModal(confirmDeleteModal);
+            return;
+        }
+
+        try {
+            const imageName = imageToDelete.name;
+            const response = await fetch(`/api/themes/${encodeURIComponent(currentThemeName)}/images/${encodeURIComponent(imageName)}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-Admin-Key': getAdminKey()
+                }
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                showToastMessage('图片删除成功', 'success');
+                await loadImages(currentThemeName);
+            } else {
+                showToastMessage(result.error || '删除失败', 'error');
+            }
+        } catch (error) {
+            console.error('Error deleting image:', error);
+            showToastMessage('删除失败', 'error');
+        } finally {
+            hideModal(confirmDeleteModal);
+            imageToDelete = null;
+        }
+    }
+
+    function showModal(modal) {
+        modal.style.display = 'block';
+        setTimeout(() => {
+            modal.style.opacity = '1';
+        }, 10);
+    }
+
+    function hideModal(modal) {
+        modal.style.opacity = '0';
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 300);
+    }
+
+    function showToastMessage(message, type = 'success') {
+        toastMessage.textContent = message;
+        toast.className = `toast ${type}`;
+        toast.classList.add('show');
+
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+    }
+
+    // 权限管理函数
+    function hasAdminPermission() {
+        return localStorage.getItem('adminKey') !== null;
+    }
+
+    function getAdminKey() {
+        return localStorage.getItem('adminKey');
+    }
+
+    function checkAdminPermissions() {
+        if (!hasAdminPermission()) {
+            // 如果没有管理员权限，完全隐藏管理功能
+            uploadBtn.style.display = 'none';
+            manageBtn.style.display = 'none';
+            uploadArea.style.display = 'none';
+        } else {
+            // 如果有管理员权限，显示管理功能
+            uploadBtn.style.display = 'flex';
+            manageBtn.style.display = 'flex';
+            uploadBtn.style.opacity = '1';
+            manageBtn.style.opacity = '1';
+            uploadBtn.title = '上传图片';
+            manageBtn.title = '管理图片';
+        }
+    }
+
+    function showAdminRequired() {
+        // 这个函数现在主要用于后备保护，因为按钮已经隐藏
+        const message = '此操作需要管理员权限。';
+        showToastMessage(message, 'error');
+    }
+});

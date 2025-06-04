@@ -3,14 +3,44 @@ document.addEventListener('DOMContentLoaded', function() {
     const themesGrid = document.getElementById('themesGrid');
     const themeCount = document.getElementById('themeCount');
 
-    // 加载主题
+    // 管理员状态元素
+    const adminPanelBtn = document.getElementById('adminPanelBtn');
+    const adminStatus = document.getElementById('adminStatus');
+    const adminLogoutBtn = document.getElementById('adminLogoutBtn');
+
+    // 初始化
+    console.log('页面加载完成，开始初始化...');
+
+    // 检查管理员状态并设置UI
+    checkAdminStatus();
     loadThemes();
+
+    // 管理员登出事件
+    if (adminLogoutBtn) {
+        adminLogoutBtn.addEventListener('click', function() {
+            localStorage.removeItem('adminKey');
+            checkAdminStatus();
+            showToast('已退出管理员模式', 'success');
+        });
+    }
+
+    // 监听管理员状态变化事件
+    window.addEventListener('adminStatusChanged', function() {
+        checkAdminStatus();
+    });
 
     async function loadThemes() {
         try {
             showLoading(true);
             
-            const response = await fetch('/api/themes');
+            // 使用认证令牌获取主题
+            const response = await fetch('/api/themes', {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                credentials: 'include'
+            });
+            
             if (!response.ok) {
                 throw new Error('Failed to fetch themes');
             }
@@ -250,4 +280,76 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 300);
         }, 3000);
     };
-}); 
+
+    // 管理员状态检查函数
+    function checkAdminStatus() {
+        const hasAdminKey = localStorage.getItem('adminKey') !== null;
+        const adminLinks = document.getElementById('adminLinks');
+
+        // 检查是否有特殊参数显示管理员入口（例如 ?admin=true）
+        const urlParams = new URLSearchParams(window.location.search);
+        const showAdminEntry = urlParams.get('admin') === 'true';
+
+        console.log('检查管理员状态:', { hasAdminKey, adminKey: localStorage.getItem('adminKey'), showAdminEntry });
+        console.log('DOM元素:', { adminPanelBtn, adminStatus, adminLinks });
+
+        if (hasAdminKey) {
+            // 管理员模式：显示管理状态和管理链接，隐藏验证入口
+            console.log('设置管理员模式UI');
+            adminPanelBtn?.classList.add('hidden');
+            adminStatus?.classList.remove('hidden');
+            adminLinks?.classList.remove('hidden');
+        } else {
+            // 访客模式：默认隐藏所有管理功能，除非有特殊参数
+            console.log('设置访客模式UI');
+            if (showAdminEntry) {
+                adminPanelBtn?.classList.remove('hidden');
+            } else {
+                adminPanelBtn?.classList.add('hidden');
+            }
+            adminStatus?.classList.add('hidden');
+            adminLinks?.classList.add('hidden');
+        }
+    }
+
+    // 使用window.showToast作为showToast的别名
+    window.showToast = window.showToast || function(message, type = 'success') {
+        const toast = document.createElement('div');
+        toast.style.cssText = `
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--glass-bg);
+            color: var(--text-light);
+            padding: 15px 20px;
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            font-family: 'Orbitron', monospace;
+            transition: all 0.3s ease;
+        `;
+
+        if (type === 'error') {
+            toast.style.borderColor = 'var(--secondary-neon)';
+            toast.style.color = 'var(--secondary-neon)';
+        } else if (type === 'success') {
+            toast.style.borderColor = 'var(--accent-neon)';
+            toast.style.color = 'var(--accent-neon)';
+        }
+
+        toast.textContent = message;
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateX(-50%) translateY(-20px)';
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.parentNode.removeChild(toast);
+                }
+            }, 300);
+        }, 3000);
+    };
+});

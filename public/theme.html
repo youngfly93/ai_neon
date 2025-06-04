@@ -33,6 +33,31 @@
                         <span id="imageCount">0</span> 张图片
                     </div>
                 </div>
+                <div class="gallery-actions">
+                    <button class="action-btn upload-btn" id="uploadBtn">
+                        <span>📤</span> 上传图片
+                    </button>
+                    <button class="action-btn manage-btn" id="manageBtn">
+                        <span>🗑️</span> 管理图片
+                    </button>
+                </div>
+            </div>
+
+            <!-- 上传区域 -->
+            <div class="upload-area hidden" id="uploadArea">
+                <div class="upload-box">
+                    <div class="upload-icon">📁</div>
+                    <h3>拖拽图片到这里或点击选择</h3>
+                    <p>支持 JPG, PNG, WebP, GIF 格式，单文件最大 10MB</p>
+                    <input type="file" id="fileInput" multiple accept="image/*" style="display: none;">
+                    <button class="select-files-btn" id="selectFilesBtn">选择文件</button>
+                    <div class="upload-progress hidden" id="uploadProgress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <p id="progressText">上传中...</p>
+                    </div>
+                </div>
             </div>
             
             <div class="loading" id="loading">
@@ -62,6 +87,23 @@
                 </p>
             </div>
         </div>
+    </div>
+
+    <!-- 确认删除模态框 -->
+    <div class="modal" id="confirmDeleteModal">
+        <div class="modal-content small">
+            <h3>确认删除</h3>
+            <p id="deleteMessage">确定要删除这张图片吗？此操作无法撤销。</p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="cancelDelete">取消</button>
+                <button class="btn btn-danger" id="confirmDelete">删除</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 消息提示 -->
+    <div class="toast" id="toast">
+        <span id="toastMessage"></span>
     </div>
 
     <footer class="footer">

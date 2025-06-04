@@ -2,14 +2,32 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
+const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/ai_neon_world';
+
+// 连接MongoDB数据库
+mongoose.connect(MONGO_URI)
+  .then(() => console.log('📦 MongoDB连接成功'))
+  .catch(err => console.error('MongoDB连接失败:', err));
+
+// 导入路由
+const authRoutes = require('./routes/auth');
+
+// 导入中间件
+const { optionalAuth, verifyToken, isAdmin } = require('./middleware/auth');
 
 // 中间件
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.static('public'));
 app.use('/images', express.static('.'));
+
+// 应用API路由
+app.use('/api/auth', authRoutes);
 
 // 配置multer用于文件上传
 const storage = multer.diskStorage({
@@ -81,7 +99,7 @@ const backgroundUpload = multer({
 });
 
 // 获取所有主题文件夹
-app.get('/api/themes', (req, res) => {
+app.get('/api/themes', optionalAuth, (req, res) => {
     try {
         const themes = [];
         const items = fs.readdirSync('.');
@@ -91,7 +109,8 @@ app.get('/api/themes', (req, res) => {
             const stat = fs.statSync(itemPath);
             
             if (stat.isDirectory() && !item.startsWith('.') && 
-                item !== 'node_modules' && item !== 'public') {
+                item !== 'node_modules' && item !== 'public' && item !== 'api' &&
+                item !== 'models' && item !== 'middleware' && item !== 'routes') {
                 
                 // 获取文件夹中的第一张图片作为封面
                 const files = fs.readdirSync(itemPath);
@@ -116,7 +135,7 @@ app.get('/api/themes', (req, res) => {
 });
 
 // 获取特定主题下的所有图片
-app.get('/api/themes/:themeName/images', (req, res) => {
+app.get('/api/themes/:themeName/images', optionalAuth, (req, res) => {
     try {
         const themeName = decodeURIComponent(req.params.themeName);
         const themePath = path.join('.', themeName);
@@ -141,8 +160,8 @@ app.get('/api/themes/:themeName/images', (req, res) => {
     }
 });
 
-// 创建新主题
-app.post('/api/themes', (req, res) => {
+// 创建新主题 - 需要登录
+app.post('/api/themes', verifyToken, (req, res) => {
     try {
         const { name } = req.body;
         
@@ -181,8 +200,8 @@ app.post('/api/themes', (req, res) => {
     }
 });
 
-// 删除主题
-app.delete('/api/themes/:themeName', (req, res) => {
+// 删除主题 - 需要管理员权限
+app.delete('/api/themes/:themeName', verifyToken, isAdmin, (req, res) => {
     try {
         const themeName = decodeURIComponent(req.params.themeName);
         const themePath = path.join('.', themeName);
@@ -201,8 +220,20 @@ app.delete('/api/themes/:themeName', (req, res) => {
     }
 });
 
-// 上传图片到指定主题
-app.post('/api/themes/:themeName/images', upload.array('images', 10), (req, res) => {
+// 简单的管理员密钥验证中间件
+const adminKeyAuth = (req, res, next) => {
+    const adminKey = req.headers['x-admin-key'] || req.body.adminKey || req.query.adminKey;
+    const correctKey = process.env.ADMIN_KEY || 'ai-neon-admin-2024'; // 可以通过环境变量设置
+
+    if (adminKey === correctKey) {
+        next();
+    } else {
+        res.status(403).json({ error: '需要管理员权限才能执行此操作' });
+    }
+};
+
+// 上传图片到指定主题 - 需要管理员密钥
+app.post('/api/themes/:themeName/images', adminKeyAuth, upload.array('images', 10), (req, res) => {
     try {
         const themeName = decodeURIComponent(req.params.themeName);
         const uploadedFiles = req.files;
@@ -229,8 +260,8 @@ app.post('/api/themes/:themeName/images', upload.array('images', 10), (req, res)
     }
 });
 
-// 删除指定图片
-app.delete('/api/themes/:themeName/images/:imageName', (req, res) => {
+// 删除指定图片 - 需要管理员密钥
+app.delete('/api/themes/:themeName/images/:imageName', adminKeyAuth, (req, res) => {
     try {
         const themeName = decodeURIComponent(req.params.themeName);
         const imageName = decodeURIComponent(req.params.imageName);
@@ -250,7 +281,7 @@ app.delete('/api/themes/:themeName/images/:imageName', (req, res) => {
 });
 
 // 获取所有背景图片
-app.get('/api/backgrounds', (req, res) => {
+app.get('/api/backgrounds', optionalAuth, (req, res) => {
     try {
         const backgrounds = [];
         
@@ -288,8 +319,8 @@ app.get('/api/backgrounds', (req, res) => {
     }
 });
 
-// 上传背景图片
-app.post('/api/backgrounds', backgroundUpload.single('background'), (req, res) => {
+// 上传背景图片 - 需要管理员权限
+app.post('/api/backgrounds', verifyToken, isAdmin, backgroundUpload.single('background'), (req, res) => {
     try {
         const uploadedFile = req.file;
         
@@ -313,8 +344,8 @@ app.post('/api/backgrounds', backgroundUpload.single('background'), (req, res) =
     }
 });
 
-// 删除背景图片
-app.delete('/api/backgrounds/:backgroundName', (req, res) => {
+// 删除背景图片 - 需要管理员权限
+app.delete('/api/backgrounds/:backgroundName', verifyToken, isAdmin, (req, res) => {
     try {
         const backgroundName = decodeURIComponent(req.params.backgroundName);
         const backgroundPath = path.join(backgroundsPath, backgroundName);
@@ -342,9 +373,19 @@ app.get('/theme/:themeName', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'theme.html'));
 });
 
-// 管理页面路由
+// 管理页面路由 - 需要登录才能访问
 app.get('/admin', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+});
+
+// 管理员验证面板路由
+app.get('/admin-panel', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'admin-panel.html'));
+});
+
+// 登录页面路由
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
 // 错误处理中间件
@@ -367,4 +408,5 @@ app.listen(PORT, () => {
     console.log(`🚀 AI NEON'world server running at http://localhost:${PORT}`);
     console.log(`🎨 Neon-powered file management system is ready!`);
     console.log(`🛠️  Admin panel available at http://localhost:${PORT}/admin`);
+    console.log(`🔑 Login system enabled - http://localhost:${PORT}/login`);
 }); 

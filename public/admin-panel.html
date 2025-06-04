@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理员面板 - AI NEON'world</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        .admin-container {
+            max-width: 500px;
+            margin: 100px auto;
+            padding: 40px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .admin-title {
+            color: var(--accent-neon);
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px var(--accent-neon);
+        }
+
+        .key-input-group {
+            margin-bottom: 30px;
+        }
+
+        .key-input {
+            width: 100%;
+            padding: 15px 20px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            color: var(--text-light);
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .key-input:focus {
+            outline: none;
+            border-color: var(--primary-neon);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .key-input::placeholder {
+            color: var(--text-dim);
+        }
+
+        .unlock-btn {
+            background: var(--primary-neon);
+            color: var(--bg-dark);
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .unlock-btn:hover {
+            box-shadow: 0 0 30px var(--primary-neon);
+            transform: translateY(-2px);
+        }
+
+        .unlock-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .status-message {
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-family: 'Orbitron', monospace;
+            font-weight: 600;
+        }
+
+        .status-success {
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid var(--primary-neon);
+            color: var(--primary-neon);
+        }
+
+        .status-error {
+            background: rgba(255, 0, 128, 0.1);
+            border: 1px solid var(--secondary-neon);
+            color: var(--secondary-neon);
+        }
+
+        .admin-actions {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .admin-actions.show {
+            display: block;
+        }
+
+        .action-link {
+            display: inline-block;
+            background: var(--glass-bg);
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 20px;
+            margin: 10px;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', monospace;
+            font-weight: 600;
+        }
+
+        .action-link:hover {
+            background: var(--accent-neon);
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px var(--accent-neon);
+            transform: translateY(-2px);
+        }
+
+        .info-text {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container">
+        <div class="neon-grid"></div>
+        <div class="floating-particles"></div>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <span class="logo-text">AI NEON'world</span>
+                <span class="logo-subtitle">管理员面板</span>
+            </a>
+            <a href="/" class="back-btn">← 返回首页</a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="admin-container">
+            <h1 class="admin-title">🔐 管理员验证</h1>
+            
+            <div class="key-input-group">
+                <input type="password" 
+                       class="key-input" 
+                       id="adminKey" 
+                       placeholder="请输入管理员密钥"
+                       autocomplete="off">
+            </div>
+            
+            <button class="unlock-btn" id="unlockBtn">解锁管理权限</button>
+            
+            <div class="status-message" id="statusMessage" style="display: none;"></div>
+            
+            <div class="admin-actions" id="adminActions">
+                <h3 style="color: var(--text-light); margin-bottom: 20px;">管理功能已解锁</h3>
+                <a href="/" class="action-link">📁 浏览主题</a>
+                <a href="/admin" class="action-link">⚙️ 系统管理</a>
+                <button class="action-link" id="logoutBtn" style="border: none; background: var(--glass-bg);">🚪 退出管理</button>
+            </div>
+            
+            <div class="info-text">
+                <p>💡 提示：输入正确的管理员密钥后，你将获得上传和删除图片的权限。</p>
+                <p>🔒 访客只能浏览图片，无法进行修改操作。</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/background.js"></script>
+    <script>
+        const adminKey = document.getElementById('adminKey');
+        const unlockBtn = document.getElementById('unlockBtn');
+        const statusMessage = document.getElementById('statusMessage');
+        const adminActions = document.getElementById('adminActions');
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        // 检查是否已经有管理员权限
+        if (localStorage.getItem('adminKey')) {
+            showAdminActions();
+        }
+
+        unlockBtn.addEventListener('click', verifyAdminKey);
+        adminKey.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                verifyAdminKey();
+            }
+        });
+
+        logoutBtn.addEventListener('click', logout);
+
+        async function verifyAdminKey() {
+            const key = adminKey.value.trim();
+            if (!key) {
+                showStatus('请输入管理员密钥', 'error');
+                return;
+            }
+
+            unlockBtn.disabled = true;
+            unlockBtn.textContent = '验证中...';
+
+            try {
+                // 测试密钥是否正确
+                const response = await fetch('/api/themes', {
+                    method: 'GET',
+                    headers: {
+                        'X-Admin-Key': key
+                    }
+                });
+
+                if (response.ok) {
+                    localStorage.setItem('adminKey', key);
+                    showStatus('管理员权限验证成功！', 'success');
+                    setTimeout(() => {
+                        showAdminActions();
+                        // 通知其他页面更新状态
+                        window.dispatchEvent(new Event('adminStatusChanged'));
+                    }, 1000);
+                } else {
+                    showStatus('管理员密钥错误，请重试', 'error');
+                }
+            } catch (error) {
+                showStatus('验证失败，请检查网络连接', 'error');
+            } finally {
+                unlockBtn.disabled = false;
+                unlockBtn.textContent = '解锁管理权限';
+            }
+        }
+
+        function showAdminActions() {
+            adminActions.classList.add('show');
+            adminKey.style.display = 'none';
+            unlockBtn.style.display = 'none';
+            statusMessage.style.display = 'none';
+        }
+
+        function logout() {
+            localStorage.removeItem('adminKey');
+            // 通知其他页面更新状态
+            window.dispatchEvent(new Event('adminStatusChanged'));
+            location.reload();
+        }
+
+        function showStatus(message, type) {
+            statusMessage.textContent = message;
+            statusMessage.className = `status-message status-${type}`;
+            statusMessage.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

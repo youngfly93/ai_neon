@@ -1,0 +1,320 @@
+/* Login Page Styles */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.login-box {
+  background: rgba(10, 10, 20, 0.8);
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.4), 
+              0 0 40px rgba(0, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  width: 100%;
+  max-width: 450px;
+  padding: 40px;
+  text-align: center;
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.login-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #ff00ff, #00ffff);
+  animation: borderGlow 2s infinite linear;
+}
+
+@keyframes borderGlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.login-header {
+  margin-bottom: 30px;
+}
+
+.login-header .logo {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.login-header .neon-text {
+  color: #00ffff;
+  text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ffff;
+  letter-spacing: 2px;
+}
+
+.login-header .world-text {
+  color: #ff00ff;
+  text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+}
+
+.login-header .subtitle {
+  font-size: 1rem;
+  color: #a0a0a0;
+  margin-top: 5px;
+}
+
+/* Login Methods */
+.login-methods {
+  margin-bottom: 30px;
+}
+
+.login-tabs {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tab-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #7a7a8c;
+  padding: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+  color: #00ffff;
+  border-bottom: 2px solid #00ffff;
+}
+
+.tab-btn:hover:not(.active) {
+  color: #ffffff;
+}
+
+.login-form {
+  display: none;
+}
+
+.login-form.active {
+  display: block;
+}
+
+/* Form Elements */
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.9rem;
+  color: #a0a0a0;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  background: rgba(20, 20, 35, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  color: #ffffff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #00ffff;
+  box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+}
+
+.verification-group .verification-input-container {
+  display: flex;
+  gap: 10px;
+}
+
+.verification-input-container input {
+  flex: 1;
+}
+
+.send-code-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #00ffff;
+  padding: 0 15px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.send-code-btn:hover {
+  background: rgba(0, 255, 255, 0.2);
+}
+
+.send-code-btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(90deg, #00ffff, #00ccff);
+  border: none;
+  border-radius: 5px;
+  color: #111122;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
+}
+
+/* WeChat Login */
+.wechat-qrcode-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.qrcode-placeholder {
+  width: 180px;
+  height: 180px;
+  background: rgba(20, 20, 35, 0.8);
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.qrcode-placeholder p {
+  color: #a0a0a0;
+  font-size: 0.9rem;
+}
+
+.qrcode-tip {
+  color: #a0a0a0;
+  font-size: 0.9rem;
+}
+
+/* Mock WeChat Login (for development) */
+.mock-login-dev {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.mock-login-btn {
+  background: rgba(76, 175, 80, 0.2);
+  border: 1px solid rgba(76, 175, 80, 0.4);
+  color: #4CAF50;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mock-login-btn:hover {
+  background: rgba(76, 175, 80, 0.3);
+}
+
+/* Login Footer */
+.login-footer {
+  margin-top: 30px;
+  font-size: 0.8rem;
+  color: #7a7a8c;
+}
+
+.login-footer a {
+  color: #00ffff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.login-footer a:hover {
+  text-decoration: underline;
+  color: #ffffff;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 15px;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 20, 0.9);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.loading-overlay.hidden {
+  display: none;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(0, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #00ffff;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-overlay p {
+  margin-top: 20px;
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 480px) {
+  .login-box {
+    padding: 30px 20px;
+  }
+  
+  .login-header .logo {
+    font-size: 1.5rem;
+  }
+  
+  .verification-group .verification-input-container {
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .send-code-btn {
+    padding: 10px;
+    width: 100%;
+  }
+} 
