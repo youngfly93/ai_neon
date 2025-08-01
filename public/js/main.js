@@ -1,7 +1,11 @@
+import Masonry from './Masonry.js';
+
 document.addEventListener('DOMContentLoaded', function() {
     const loading = document.getElementById('loading');
-    const themesGrid = document.getElementById('themesGrid');
-    const themeCount = document.getElementById('themeCount');
+    const masonryContainer = document.getElementById('chromaGridContainer');
+    // const themeCount = document.getElementById('themeCount'); // 已移除主题计数器
+    
+    let masonryGrid = null;
 
     // 管理员状态元素
     const adminPanelBtn = document.getElementById('adminPanelBtn');
@@ -47,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const themes = await response.json();
             displayThemes(themes);
-            updateThemeCount(themes.length);
+            // updateThemeCount(themes.length); // 已移除主题计数器
             
         } catch (error) {
             console.error('Error loading themes:', error);
@@ -58,70 +62,82 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function displayThemes(themes) {
-        themesGrid.innerHTML = '';
-        
-        themes.forEach(theme => {
-            const themeCard = createThemeCard(theme);
-            themesGrid.appendChild(themeCard);
-        });
+        // 转换主题数据为 Masonry 格式
+        const masonryItems = themes.map(theme => ({
+            image: theme.cover,
+            img: theme.cover, // 兼容两种属性名
+            title: theme.displayName,
+            displayName: theme.displayName,
+            subtitle: `${theme.imageCount} 张图片`,
+            imageCount: theme.imageCount,
+            name: theme.name,
+            handle: theme.name,
+            // 等比例放大高度 1.5倍
+            height: Math.floor((theme.imageCount > 20 ? 280 : theme.imageCount > 10 ? 240 : 200) * 1.5),
+            url: `/theme/${encodeURIComponent(theme.name)}`
+        }));
 
-        // 添加动画效果
-        animateThemeCards();
-    }
+        // 清理旧的网格
+        if (masonryGrid) {
+            masonryGrid.destroy();
+        }
 
-    function createThemeCard(theme) {
-        const card = document.createElement('div');
-        card.className = 'theme-card';
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(50px)';
-        
-        card.innerHTML = `
-            <div class="theme-overlay"></div>
-            <img src="${theme.cover}" alt="${theme.displayName}" class="theme-cover" loading="lazy">
-            <div class="theme-info">
-                <h3 class="theme-name">${theme.displayName}</h3>
-                <p class="theme-count-text">${theme.imageCount} 张图片</p>
-            </div>
-        `;
-
-        // 点击事件
-        card.addEventListener('click', () => {
-            navigateToTheme(theme.name);
-        });
-
-        // 图片加载错误处理
-        const img = card.querySelector('.theme-cover');
-        img.addEventListener('error', () => {
-            img.src = '/placeholder.svg';
-            img.alt = '图片加载失败';
-        });
-
-        return card;
-    }
-
-    function animateThemeCards() {
-        const cards = document.querySelectorAll('.theme-card');
-        
-        cards.forEach((card, index) => {
-            setTimeout(() => {
-                card.style.transition = 'all 0.6s ease';
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
-            }, index * 100);
+        // 创建新的 Masonry 瀑布流
+        masonryGrid = new Masonry(masonryContainer, {
+            items: masonryItems,
+            ease: "power3.out",
+            duration: 0.6,
+            stagger: 0.03,
+            animateFrom: "bottom",
+            scaleOnHover: true,
+            hoverScale: 0.98,
+            blurToFocus: true,
+            colorShiftOnHover: false
         });
     }
+
+    function getRandomNeonColor() {
+        const neonColors = [
+            '#00ffff', // 青色
+            '#ff0080', // 洋红
+            '#ffff00', // 黄色
+            '#80ff00', // 绿黄
+            '#ff8000', // 橙色
+            '#8000ff', // 紫色
+            '#ff0040', // 红粉
+            '#40ff00'  // 绿色
+        ];
+        return neonColors[Math.floor(Math.random() * neonColors.length)];
+    }
+
+    function getRandomNeonGradient() {
+        const gradients = [
+            'linear-gradient(145deg, #00ffff, #000)',
+            'linear-gradient(180deg, #ff0080, #000)',
+            'linear-gradient(210deg, #ffff00, #000)',
+            'linear-gradient(165deg, #80ff00, #000)',
+            'linear-gradient(195deg, #ff8000, #000)',
+            'linear-gradient(225deg, #8000ff, #000)',
+            'linear-gradient(135deg, #ff0040, #000)',
+            'linear-gradient(270deg, #40ff00, #000)'
+        ];
+        return gradients[Math.floor(Math.random() * gradients.length)];
+    }
+
+    // 注意：旧的主题卡片函数已被 ChromaGrid 替代
 
     function navigateToTheme(themeName) {
         const encodedThemeName = encodeURIComponent(themeName);
         window.location.href = `/theme/${encodedThemeName}`;
     }
 
-    function updateThemeCount(count) {
-        themeCount.textContent = count;
-        
-        // 数字动画效果
-        animateNumber(themeCount, 0, count, 1000);
-    }
+    // 已移除主题计数器功能
+    // function updateThemeCount(count) {
+    //     themeCount.textContent = count;
+    //     
+    //     // 数字动画效果
+    //     animateNumber(themeCount, 0, count, 1000);
+    // }
 
     function animateNumber(element, start, end, duration) {
         const startTime = performance.now();
@@ -148,15 +164,15 @@ document.addEventListener('DOMContentLoaded', function() {
     function showLoading(show) {
         if (show) {
             loading.classList.remove('hidden');
-            themesGrid.classList.add('hidden');
+            masonryContainer.classList.add('hidden');
         } else {
             loading.classList.add('hidden');
-            themesGrid.classList.remove('hidden');
+            masonryContainer.classList.remove('hidden');
         }
     }
 
     function showError(message) {
-        themesGrid.innerHTML = `
+        masonryContainer.innerHTML = `
             <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px;">
                 <div style="font-size: 3rem; margin-bottom: 20px; color: var(--secondary-neon);">⚠️</div>
                 <h3 style="color: var(--secondary-neon); margin-bottom: 10px;">出错了</h3>

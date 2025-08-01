@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI NEON'world - 霓虹画廊</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/FaultyTerminal.css">
+    <link rel="stylesheet" href="/css/Masonry.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="background-effects">
-        <div class="neon-grid"></div>
-        <div class="floating-particles"></div>
+    <div class="background-effects" id="backgroundContainer">
+        <!-- 故障终端背景将在这里插入 -->
     </div>
 
     <header class="header">
@@ -49,20 +51,14 @@
 
     <main class="main">
         <div class="container">
-            <div class="gallery-header">
-                <h2 class="section-title">创意主题</h2>
-                <div class="theme-count">
-                    <span id="themeCount">0</span> 个主题
-                </div>
-            </div>
             
             <div class="loading" id="loading">
                 <div class="loading-spinner"></div>
                 <p>加载中...</p>
             </div>
 
-            <div class="themes-grid" id="themesGrid">
-                <!-- 主题卡片将在这里动态生成 -->
+            <div class="chroma-grid-container" id="chromaGridContainer">
+                <!-- ChromaGrid 将在这里初始化 -->
             </div>
         </div>
     </main>
@@ -74,7 +70,7 @@
     </footer>
 
     <script src="/js/auth.js"></script>
-    <script src="/js/main.js"></script>
-    <script src="/js/background.js"></script>
+    <script type="module" src="/js/main.js"></script>
+    <script type="module" src="/js/simple-background.js"></script>
 </body>
 </html> 

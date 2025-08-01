@@ -25,6 +25,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.static('public'));
 app.use('/images', express.static('.'));
+app.use('/node_modules', express.static('node_modules'));
 
 // 应用API路由
 app.use('/api/auth', authRoutes);
@@ -306,7 +307,8 @@ app.get('/api/backgrounds', optionalAuth, (req, res) => {
             { name: 'neon-grid', url: 'preset', type: 'preset', displayName: '霓虹网格' },
             { name: 'cyber-matrix', url: 'preset', type: 'preset', displayName: '赛博矩阵' },
             { name: 'starfield', url: 'preset', type: 'preset', displayName: '星空' },
-            { name: 'digital-rain', url: 'preset', type: 'preset', displayName: '数字雨' }
+            { name: 'digital-rain', url: 'preset', type: 'preset', displayName: '数字雨' },
+            { name: 'faulty-terminal', url: 'preset', type: 'preset', displayName: '故障终端' }
         ];
         
         res.json({
