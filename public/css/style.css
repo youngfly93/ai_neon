@@ -1354,3 +1354,37 @@ body {
 .gallery-actions {
     background: transparent !important;
 }
+
+
+/* 3D Pin Container */
+.pin-container {
+    position: relative;
+    width: 600px;
+    height: 450px;
+    margin: 40px auto 60px;
+    z-index: 50;
+    pointer-events: none;
+    isolation: isolate;
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+.pin-container .pin-wrapper {
+    pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+    .pin-container {
+        width: 450px;
+        height: 340px;
+        margin: 30px auto 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .pin-container {
+        width: 320px;
+        height: 240px;
+        margin: 20px auto 30px;
+    }
+}

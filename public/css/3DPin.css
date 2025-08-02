@@ -1,0 +1,352 @@
+/* 3D Pin 组件样式 */
+.pin-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+}
+
+.pin-link {
+    position: relative;
+    display: block;
+    cursor: pointer;
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+}
+
+/* 透视容器 */
+.pin-perspective-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: 1.5px;
+    margin-top: 16px;
+    transform: translate(-50%, -50%);
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+/* 内容容器 */
+.pin-content-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.7s ease;
+    padding: 24px;
+    
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    
+    border-radius: 20px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+    background: #000000;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    
+    width: 480px;
+    min-height: 300px;
+}
+
+.pin-link:hover .pin-content-container {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* 内容区域 */
+.pin-content {
+    position: relative;
+    z-index: 50;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* 图片区域 */
+.pin-image-wrapper {
+    width: 100%;
+    height: 180px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+}
+
+.pin-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.pin-link:hover .pin-image {
+    transform: scale(1.05);
+}
+
+/* 信息区域 */
+.pin-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.pin-title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    font-family: 'Orbitron', monospace;
+}
+
+.pin-description {
+    margin: 0;
+    font-size: 1.125rem;
+    color: rgba(148, 163, 184, 0.7);
+    font-family: 'Orbitron', monospace;
+}
+
+/* 渐变背景 */
+.pin-gradient-bg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: linear-gradient(to bottom right, 
+        rgba(139, 92, 246, 0.3), 
+        rgba(168, 85, 247, 0.3), 
+        rgba(59, 130, 246, 0.3));
+    border-radius: 0 0 8px 8px;
+    opacity: 0.6;
+}
+
+/* 透视覆盖层 */
+.pin-perspective-overlay {
+    pointer-events: none;
+    width: 576px;
+    height: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    z-index: 60;
+    transition: opacity 0.5s ease;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* 悬停标题 */
+.pin-hover-title {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+}
+
+.pin-hover-title a,
+.pin-hover-title span {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 10;
+    border-radius: 9999px;
+    background: #09090b;
+    padding: 2px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.pin-hover-title span::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 18px;
+    height: 1px;
+    width: calc(100% - 36px);
+    background: linear-gradient(to right, 
+        rgba(16, 185, 129, 0), 
+        rgba(16, 185, 129, 0.9), 
+        rgba(16, 185, 129, 0));
+    transition: opacity 0.5s ease;
+    opacity: 0;
+}
+
+.pin-link:hover .pin-hover-title span::after {
+    opacity: 0.4;
+}
+
+/* 动画圆圈 */
+.pin-circles {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: 1.5px;
+    margin-top: 16px;
+    transform: translate(-50%, -50%);
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+.pin-circle {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 270px;
+    height: 270px;
+    border-radius: 50%;
+    background: rgba(14, 165, 233, 0.08);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    transform: translateX(-50%) translateY(-50%);
+    animation: pinCircleAnimation 6s infinite;
+}
+
+.pin-circle-1 {
+    animation-delay: 0s;
+}
+
+.pin-circle-2 {
+    animation-delay: 2s;
+}
+
+.pin-circle-3 {
+    animation-delay: 4s;
+}
+
+@keyframes pinCircleAnimation {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-50%) scale(0);
+    }
+    16.66% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-50%) scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: translateX(-50%) translateY(-50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-50%) scale(1);
+    }
+}
+
+/* 光束效果 */
+.pin-beam-container {
+    position: absolute;
+    right: 50%;
+    bottom: 50%;
+    transform: translateY(14px);
+}
+
+.pin-beam {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 1px;
+    height: 80px;
+    background: linear-gradient(to bottom, transparent, #06b6d4);
+    transition: height 0.3s ease;
+}
+
+.pin-beam-blur {
+    filter: blur(2px);
+}
+
+.pin-beam-solid {
+    /* 实心光束 */
+}
+
+.pin-beam-dot {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    transform: translateY(14px);
+    border-radius: 50%;
+    z-index: 40;
+}
+
+.pin-beam-dot-blur {
+    width: 4px;
+    height: 4px;
+    background: #0891b2;
+    filter: blur(3px);
+    transform: translateX(1.5px) translateY(14px);
+}
+
+.pin-beam-dot-solid {
+    width: 2px;
+    height: 2px;
+    background: #67e8f9;
+    transform: translateX(0.5px) translateY(14px);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .pin-content-container {
+        width: 360px;
+        min-height: 220px;
+        padding: 18px;
+    }
+    
+    .pin-image-wrapper {
+        height: 140px;
+    }
+    
+    .pin-perspective-overlay {
+        width: 420px;
+        height: 360px;
+    }
+    
+    .pin-circle {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .pin-title {
+        font-size: 1.25rem;
+    }
+    
+    .pin-description {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .pin-content-container {
+        width: 280px;
+        min-height: 180px;
+        padding: 14px;
+    }
+    
+    .pin-image-wrapper {
+        height: 100px;
+    }
+    
+    .pin-perspective-overlay {
+        width: 320px;
+        height: 280px;
+    }
+    
+    .pin-circle {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .pin-title {
+        font-size: 1.1rem;
+    }
+    
+    .pin-description {
+        font-size: 0.9rem;
+    }
+}

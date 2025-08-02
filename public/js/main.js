@@ -18,6 +18,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // 检查管理员状态并设置UI
     checkAdminStatus();
     loadThemes();
+    
+    // 初始化3D Pin组件
+    init3DPin();
 
     // 管理员登出事件
     if (adminLogoutBtn) {
@@ -368,4 +371,23 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 300);
         }, 3000);
     };
+
+
+    // 初始化3D Pin组件
+    function init3DPin() {
+        const pinContainer = document.getElementById('pinContainer');
+        if (pinContainer && window.ThreeDPin) {
+            try {
+                const threeDPin = new ThreeDPin(pinContainer, {
+                    title: 'AI NEON\'world',
+                    href: '#',
+                    imageUrl: '/images/neon.jpg'
+                });
+                
+                console.log('3D Pin组件初始化成功');
+            } catch (error) {
+                console.error('3D Pin组件初始化失败:', error);
+            }
+        }
+    }
 });
