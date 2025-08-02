@@ -3,6 +3,7 @@ class BackgroundManager {
     constructor() {
         this.currentBackground = this.loadSavedBackground();
         this.backgroundsData = { presets: [], custom: [] };
+        this.faultyTerminal = null;
         this.init();
     }
 
@@ -218,10 +219,13 @@ class BackgroundManager {
             return;
         }
 
+        console.log('应用背景:', background);
+        
         const backgroundEffects = document.querySelector('.background-effects');
         if (!backgroundEffects) return;
 
-        // 清除所有背景效果
+        // 清除所有背景效果和故障终端
+        this.cleanupBackground();
         backgroundEffects.innerHTML = '';
 
         if (background.type === 'preset') {
@@ -230,17 +234,97 @@ class BackgroundManager {
             this.applyCustomBackground(background.url, backgroundEffects);
         }
 
-        // 始终保持浮动粒子效果
-        const particles = document.createElement('div');
-        particles.className = 'floating-particles';
-        backgroundEffects.appendChild(particles);
+        // 对于非故障终端背景，保持浮动粒子效果
+        if (background.name !== 'faulty-terminal') {
+            const particles = document.createElement('div');
+            particles.className = 'floating-particles';
+            backgroundEffects.appendChild(particles);
+        }
     }
 
     // 应用预设背景
     applyPresetBackground(backgroundName, container) {
-        const backgroundDiv = document.createElement('div');
-        backgroundDiv.className = backgroundName;
-        container.appendChild(backgroundDiv);
+        if (backgroundName === 'faulty-terminal') {
+            this.applyFaultyTerminal(container);
+        } else {
+            const backgroundDiv = document.createElement('div');
+            backgroundDiv.className = backgroundName;
+            container.appendChild(backgroundDiv);
+        }
+    }
+
+    // 应用故障终端背景
+    async applyFaultyTerminal(container) {
+        try {
+            console.log('尝试导入 FaultyTerminal...');
+            // 动态导入故障终端模块
+            const module = await import('./FaultyTerminal.js');
+            const { FaultyTerminal } = module;
+            
+            console.log('FaultyTerminal 导入成功:', FaultyTerminal);
+            
+            // 创建容器
+            const terminalContainer = document.createElement('div');
+            terminalContainer.className = 'faulty-terminal-container';
+            terminalContainer.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+                pointer-events: none;
+            `;
+            
+            container.appendChild(terminalContainer);
+            
+            console.log('正在创建 FaultyTerminal 实例...');
+            
+            const options = {
+                scale: 1.5,
+                gridMul: [2, 1],
+                digitSize: 0.6,  // Digit Size: 0.6
+                timeScale: 0.5,  // Speed: 0.5
+                pause: false,
+                scanlineIntensity: 0.5,  // Scanline Intensity: 0.5
+                glitchAmount: 1,
+                flickerAmount: 1,
+                noiseAmp: 1,  // Noise Amplitude: 1
+                chromaticAberration: 0,
+                dither: 0,
+                curvature: 0.5,  // Curvature: 0.5
+                tint: "#a7ef9e",  // RGB(167, 239, 158)
+                mouseReact: true,  // Mouse React: 开启
+                mouseStrength: 0.5,  // Mouse Strength: 0.5
+                pageLoadAnimation: true,  // Page Load Animation: 开启
+                brightness: 0.6  // Brightness: 0.6
+            };
+            
+            console.log('FaultyTerminal 参数:', options);
+            
+            // 创建故障终端实例
+            this.faultyTerminal = new FaultyTerminal(terminalContainer, options);
+            
+            console.log('FaultyTerminal 实例创建成功');
+            
+        } catch (error) {
+            console.error('Failed to load FaultyTerminal:', error);
+            this.showToast('故障终端加载失败，使用默认背景', 'error');
+            
+            // 降级到默认背景
+            const backgroundDiv = document.createElement('div');
+            backgroundDiv.className = 'neon-grid';
+            container.appendChild(backgroundDiv);
+        }
+    }
+
+    // 清理背景效果
+    cleanupBackground() {
+        // 清理故障终端实例
+        if (this.faultyTerminal) {
+            this.faultyTerminal.destroy();
+            this.faultyTerminal = null;
+        }
     }
 
     // 应用自定义背景
@@ -256,6 +340,7 @@ class BackgroundManager {
         const backgroundEffects = document.querySelector('.background-effects');
         if (!backgroundEffects) return;
 
+        this.cleanupBackground();
         backgroundEffects.innerHTML = `
             <div class="neon-grid"></div>
             <div class="floating-particles"></div>

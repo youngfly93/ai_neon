@@ -107,21 +107,21 @@ class SimpleBackgroundController {
         this.terminalInstance = new FaultyTerminal(terminalContainer, {
             scale: 1.5,
             gridMul: [2, 1],
-            digitSize: 1.2,
-            timeScale: 1,
+            digitSize: 0.6,  // Digit Size: 0.6
+            timeScale: 0.5,  // Speed: 0.5
             pause: false,
-            scanlineIntensity: 1,
+            scanlineIntensity: 0.5,  // Scanline Intensity: 0.5
             glitchAmount: 1,
             flickerAmount: 1,
-            noiseAmp: 1,
+            noiseAmp: 1,  // Noise Amplitude: 1
             chromaticAberration: 0,
             dither: 0,
-            curvature: 0,
-            tint: "#00ffff",
-            mouseReact: true,
-            mouseStrength: 0.5,
-            pageLoadAnimation: false,
-            brightness: 1
+            curvature: 0.5,  // Curvature: 0.5
+            tint: "#a7ef9e",  // RGB(167, 239, 158)
+            mouseReact: true,  // Mouse React: 开启
+            mouseStrength: 0.5,  // Mouse Strength: 0.5
+            pageLoadAnimation: true,  // Page Load Animation: 开启
+            brightness: 0.6  // Brightness: 0.6
         });
         
         console.log('故障终端背景加载成功');

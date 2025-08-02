@@ -607,7 +607,7 @@ body {
     align-items: center;
     margin-bottom: 40px;
     padding: 20px;
-    background: rgba(0, 0, 0, 0.8);
+    background: transparent;
     border: 1px solid var(--primary-neon);
     border-radius: 15px;
 }
@@ -623,7 +623,7 @@ body {
     font-size: 1.1rem;
     color: var(--text-dim);
     padding: 10px 20px;
-    background: rgba(0, 255, 255, 0.1);
+    background: transparent;
     border-radius: 20px;
     border: 1px solid var(--primary-neon);
 }
@@ -658,7 +658,7 @@ body {
 }
 
 .theme-card {
-    background: rgba(0, 0, 0, 0.8);
+    background: transparent;
     border: 1px solid var(--primary-neon);
     border-radius: 15px;
     overflow: hidden;
@@ -693,7 +693,8 @@ body {
 
 .theme-info {
     padding: 15px;
-    background: rgba(0, 0, 0, 0.8);
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
     position: absolute;
     bottom: 0;
     left: 0;
@@ -868,17 +869,6 @@ body {
     font-size: 0.9rem;
 }
 
-/* 页脚 */
-.footer {
-    background: var(--bg-darker);
-    padding: 30px 0;
-    text-align: center;
-    border-top: 1px solid var(--glass-border);
-}
-
-.footer p {
-    color: var(--text-dim);
-}
 
 /* 响应式设计 */
 @media (max-width: 768px) {
@@ -1347,4 +1337,20 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* 修复黑色背景条问题 - 确保所有容器透明 */
+.main,
+.container,
+.masonry-grid,
+.masonry-item-wrapper,
+.chroma-grid-container,
+.chroma-grid,
+.chroma-card,
+.chroma-info,
+.loading,
+.gallery-header,
+.theme-info,
+.gallery-actions {
+    background: transparent !important;
 }

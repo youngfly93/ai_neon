@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     const loading = document.getElementById('loading');
     const imagesGrid = document.getElementById('imagesGrid');
-    const imageCount = document.getElementById('imageCount');
-    const themeName = document.getElementById('themeName');
+    // const imageCount = document.getElementById('imageCount');
+    // const themeName = document.getElementById('themeName');
     const themeTitle = document.getElementById('themeTitle');
 
     // 模态框元素
@@ -12,12 +12,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     const imageName = document.getElementById('imageName');
-    const currentIndex = document.getElementById('currentIndex');
-    const totalImages = document.getElementById('totalImages');
 
     // 上传和管理元素
-    const uploadBtn = document.getElementById('uploadBtn');
-    const manageBtn = document.getElementById('manageBtn');
+    // const uploadBtn = document.getElementById('uploadBtn');
+    // const manageBtn = document.getElementById('manageBtn');
     const uploadArea = document.getElementById('uploadArea');
     const fileInput = document.getElementById('fileInput');
     const selectFilesBtn = document.getElementById('selectFilesBtn');
@@ -63,24 +61,24 @@ document.addEventListener('DOMContentLoaded', function() {
         checkAdminPermissions();
 
         // 上传按钮事件
-        uploadBtn.addEventListener('click', () => {
+        /*uploadBtn.addEventListener('click', () => {
             if (hasAdminPermission()) {
                 toggleUploadArea();
             } else {
                 showAdminRequired();
             }
-        });
+        });*/
         selectFilesBtn.addEventListener('click', () => fileInput.click());
         fileInput.addEventListener('change', handleFileSelect);
 
         // 管理按钮事件
-        manageBtn.addEventListener('click', () => {
+        /*manageBtn.addEventListener('click', () => {
             if (hasAdminPermission()) {
                 toggleManageMode();
             } else {
                 showAdminRequired();
             }
-        });
+        });*/
 
         // 拖拽上传事件
         const uploadBox = uploadArea.querySelector('.upload-box');
@@ -101,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updatePageTitle(name) {
-        themeName.textContent = name;
+        // themeName.textContent = name;
         themeTitle.textContent = name;
         document.title = `${name} - AI NEON'world`;
     }
@@ -227,8 +225,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const image = currentImages[currentImageIndex];
         modalImage.src = image.url;
         imageName.textContent = image.name;
-        currentIndex.textContent = currentImageIndex + 1;
-        totalImages.textContent = currentImages.length;
         
         // 更新导航按钮状态
         prevBtn.style.opacity = currentImageIndex > 0 ? '1' : '0.5';
@@ -245,10 +241,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updateImageCount(count) {
-        imageCount.textContent = count;
+        // imageCount.textContent = count;
         
         // 数字动画效果
-        animateNumber(imageCount, 0, count, 800);
+        // animateNumber(imageCount, 0, count, 800);
     }
 
     function animateNumber(element, start, end, duration) {
@@ -461,7 +457,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function toggleManageMode() {
-        isManageMode = !isManageMode;
+        /*isManageMode = !isManageMode;
         const imageItems = document.querySelectorAll('.image-item');
 
         if (isManageMode) {
@@ -472,7 +468,7 @@ document.addEventListener('DOMContentLoaded', function() {
             manageBtn.innerHTML = '<span>🗑️</span> 管理图片';
             manageBtn.style.background = '';
             imageItems.forEach(item => item.classList.remove('manage-mode'));
-        }
+        }*/
     }
 
     function handleFileSelect(e) {
@@ -650,7 +646,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function checkAdminPermissions() {
-        if (!hasAdminPermission()) {
+        /*if (!hasAdminPermission()) {
             // 如果没有管理员权限，完全隐藏管理功能
             uploadBtn.style.display = 'none';
             manageBtn.style.display = 'none';
@@ -663,7 +659,7 @@ document.addEventListener('DOMContentLoaded', function() {
             manageBtn.style.opacity = '1';
             uploadBtn.title = '上传图片';
             manageBtn.title = '管理图片';
-        }
+        }*/
     }
 
     function showAdminRequired() {
