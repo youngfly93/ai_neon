@@ -381,7 +381,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const threeDPin = new ThreeDPin(pinContainer, {
                     title: 'AI NEON\'world',
                     href: '#',
-                    imageUrl: '/images/neon.jpg'
+                    imageUrl: '/neon_ai.gif'
                 });
                 
                 console.log('3D Pin组件初始化成功');
