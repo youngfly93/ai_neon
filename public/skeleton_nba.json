@@ -1,114 +1,114 @@
 {
   "name": "skeleton_nba",
   "displayName": "骨架NBA",
-  "cover": "/images/skeleton_nba/00000-2390937896.png",
-  "imageCount": 21,
-  "createdAt": "2025-08-06T14:21:28.917Z",
+  "description": "AI generated artwork collection",
   "images": [
     {
-      "filename": "00000-2390937896.png",
+      "name": "00000-2390937896.png",
       "path": "/images/skeleton_nba/00000-2390937896.png",
       "size": 13870254
-    },
-    {
-      "filename": "00000-3765941366.png",
+    }
+    ,{
+      "name": "00000-3765941366.png",
       "path": "/images/skeleton_nba/00000-3765941366.png",
       "size": 9895080
-    },
-    {
-      "filename": "00000-651685108.png",
+    }
+    ,{
+      "name": "00000-651685108.png",
       "path": "/images/skeleton_nba/00000-651685108.png",
       "size": 10244974
-    },
-    {
-      "filename": "00001-1941950969.png",
+    }
+    ,{
+      "name": "00001-1941950969.png",
       "path": "/images/skeleton_nba/00001-1941950969.png",
       "size": 12783240
-    },
-    {
-      "filename": "00001-2363534760.png",
+    }
+    ,{
+      "name": "00001-2363534760.png",
       "path": "/images/skeleton_nba/00001-2363534760.png",
       "size": 15244096
-    },
-    {
-      "filename": "00001-928685767.png",
+    }
+    ,{
+      "name": "00001-928685767.png",
       "path": "/images/skeleton_nba/00001-928685767.png",
       "size": 11888530
-    },
-    {
-      "filename": "00002-3152963422.png",
+    }
+    ,{
+      "name": "00002-3152963422.png",
       "path": "/images/skeleton_nba/00002-3152963422.png",
       "size": 16155197
-    },
-    {
-      "filename": "00003-1721886490.png",
+    }
+    ,{
+      "name": "00003-1721886490.png",
       "path": "/images/skeleton_nba/00003-1721886490.png",
       "size": 10595345
-    },
-    {
-      "filename": "00003-4229075909.png",
+    }
+    ,{
+      "name": "00003-4229075909.png",
       "path": "/images/skeleton_nba/00003-4229075909.png",
       "size": 10225056
-    },
-    {
-      "filename": "00004-4166712207.png",
+    }
+    ,{
+      "name": "00004-4166712207.png",
       "path": "/images/skeleton_nba/00004-4166712207.png",
       "size": 11915398
-    },
-    {
-      "filename": "assets_task_01jvpz0qete54rbqfxpfcys15p_1747748791_img_0.webp",
+    }
+    ,{
+      "name": "assets_task_01jvpz0qete54rbqfxpfcys15p_1747748791_img_0.webp",
       "path": "/images/skeleton_nba/assets_task_01jvpz0qete54rbqfxpfcys15p_1747748791_img_0.webp",
       "size": 257842
-    },
-    {
-      "filename": "assets_task_01jw2cttbcf339agxybk7y6aqa_1748132351_img_0.webp",
+    }
+    ,{
+      "name": "assets_task_01jw2cttbcf339agxybk7y6aqa_1748132351_img_0.webp",
       "path": "/images/skeleton_nba/assets_task_01jw2cttbcf339agxybk7y6aqa_1748132351_img_0.webp",
       "size": 167690
-    },
-    {
-      "filename": "assets_task_01jw8rhkpte0rag4ejz55rn64e_1748345968_img_1.webp",
+    }
+    ,{
+      "name": "assets_task_01jw8rhkpte0rag4ejz55rn64e_1748345968_img_1.webp",
       "path": "/images/skeleton_nba/assets_task_01jw8rhkpte0rag4ejz55rn64e_1748345968_img_1.webp",
       "size": 95244
-    },
-    {
-      "filename": "assets_task_01jw8spr28e8t8h42xcv8b2nap_1748347184_img_1.webp",
+    }
+    ,{
+      "name": "assets_task_01jw8spr28e8t8h42xcv8b2nap_1748347184_img_1.webp",
       "path": "/images/skeleton_nba/assets_task_01jw8spr28e8t8h42xcv8b2nap_1748347184_img_1.webp",
       "size": 294266
-    },
-    {
-      "filename": "assets_task_01jw8sy275ex0ak2ptgdsdw8x4_1748347445_img_0.webp",
+    }
+    ,{
+      "name": "assets_task_01jw8sy275ex0ak2ptgdsdw8x4_1748347445_img_0.webp",
       "path": "/images/skeleton_nba/assets_task_01jw8sy275ex0ak2ptgdsdw8x4_1748347445_img_0.webp",
       "size": 84730
-    },
-    {
-      "filename": "assets_task_01jw95g5bse5788401g0tefwr8_1748359561_img_0.webp",
+    }
+    ,{
+      "name": "assets_task_01jw95g5bse5788401g0tefwr8_1748359561_img_0.webp",
       "path": "/images/skeleton_nba/assets_task_01jw95g5bse5788401g0tefwr8_1748359561_img_0.webp",
       "size": 289978
-    },
-    {
-      "filename": "assets_task_01jw96vwvte6e861mphjw4z72y_1748360983_img_0.webp",
+    }
+    ,{
+      "name": "assets_task_01jw96vwvte6e861mphjw4z72y_1748360983_img_0.webp",
       "path": "/images/skeleton_nba/assets_task_01jw96vwvte6e861mphjw4z72y_1748360983_img_0.webp",
       "size": 140792
-    },
-    {
-      "filename": "assets_task_01jw9bz2dxfw1926d1kmet9br3_1748366355_img_1.webp",
+    }
+    ,{
+      "name": "assets_task_01jw9bz2dxfw1926d1kmet9br3_1748366355_img_1.webp",
       "path": "/images/skeleton_nba/assets_task_01jw9bz2dxfw1926d1kmet9br3_1748366355_img_1.webp",
       "size": 110042
-    },
-    {
-      "filename": "assets_task_01jwa0k1mcfcvbc7nwwgyvyxy1_1748387951_img_0.webp",
+    }
+    ,{
+      "name": "assets_task_01jwa0k1mcfcvbc7nwwgyvyxy1_1748387951_img_0.webp",
       "path": "/images/skeleton_nba/assets_task_01jwa0k1mcfcvbc7nwwgyvyxy1_1748387951_img_0.webp",
       "size": 115064
-    },
-    {
-      "filename": "assets_task_01jwbaje5dfxkr67m96jkd8pjv_1748431977_img_0.webp",
+    }
+    ,{
+      "name": "assets_task_01jwbaje5dfxkr67m96jkd8pjv_1748431977_img_0.webp",
       "path": "/images/skeleton_nba/assets_task_01jwbaje5dfxkr67m96jkd8pjv_1748431977_img_0.webp",
       "size": 192090
-    },
-    {
-      "filename": "assets_task_01jwbcv303emna75j6db7dtx40_1748434350_img_1.webp",
+    }
+    ,{
+      "name": "assets_task_01jwbcv303emna75j6db7dtx40_1748434350_img_1.webp",
       "path": "/images/skeleton_nba/assets_task_01jwbcv303emna75j6db7dtx40_1748434350_img_1.webp",
       "size": 134116
     }
-  ]
+  ],
+  "totalImages": 21,
+  "totalSize": 124815237
 }
