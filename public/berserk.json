@@ -1,0 +1,54 @@
+{
+  "name": "berserk",
+  "displayName": "剑风传奇",
+  "cover": "/images/berserk/assets_task_01jrpebq0becgr84vsndcetme1_img_0.webp",
+  "imageCount": 9,
+  "createdAt": "2025-08-06T14:21:28.552Z",
+  "images": [
+    {
+      "filename": "assets_task_01jrpebq0becgr84vsndcetme1_img_0.webp",
+      "path": "/images/berserk/assets_task_01jrpebq0becgr84vsndcetme1_img_0.webp",
+      "size": 246280
+    },
+    {
+      "filename": "assets_task_01jrwhaahvfpfrsnx59dgxtmb0_img_0.webp",
+      "path": "/images/berserk/assets_task_01jrwhaahvfpfrsnx59dgxtmb0_img_0.webp",
+      "size": 373900
+    },
+    {
+      "filename": "assets_task_01jrwjegxeewhb8y1hzxa962kk_img_1.webp",
+      "path": "/images/berserk/assets_task_01jrwjegxeewhb8y1hzxa962kk_img_1.webp",
+      "size": 316660
+    },
+    {
+      "filename": "assets_task_01jrwk3s3beaerwzd0cyj4e1vk_img_0.webp",
+      "path": "/images/berserk/assets_task_01jrwk3s3beaerwzd0cyj4e1vk_img_0.webp",
+      "size": 296582
+    },
+    {
+      "filename": "assets_task_01jrwkp491etw8gvc0e3febw83_img_0.webp",
+      "path": "/images/berserk/assets_task_01jrwkp491etw8gvc0e3febw83_img_0.webp",
+      "size": 303062
+    },
+    {
+      "filename": "assets_task_01jrwn0f2nehf9tdhr8kg17byj_img_1 (1).webp",
+      "path": "/images/berserk/assets_task_01jrwn0f2nehf9tdhr8kg17byj_img_1 (1).webp",
+      "size": 372688
+    },
+    {
+      "filename": "assets_task_01jrwnfsj8fdpaa7bwp3558j7m_img_1.webp",
+      "path": "/images/berserk/assets_task_01jrwnfsj8fdpaa7bwp3558j7m_img_1.webp",
+      "size": 313680
+    },
+    {
+      "filename": "assets_task_01jrwvqa3aekjrxm702wspz305_img_0.webp",
+      "path": "/images/berserk/assets_task_01jrwvqa3aekjrxm702wspz305_img_0.webp",
+      "size": 393860
+    },
+    {
+      "filename": "assets_task_01jrwwma8mfd18qgdsa2agybsm_img_1.webp",
+      "path": "/images/berserk/assets_task_01jrwwma8mfd18qgdsa2agybsm_img_1.webp",
+      "size": 432200
+    }
+  ]
+}

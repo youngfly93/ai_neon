@@ -1,0 +1,54 @@
+{
+  "name": "one_piece",
+  "displayName": "海贼王",
+  "cover": "/images/one_piece/assets_task_01jsbvh56te63vdw3zh6yyk3gc_img_0.webp",
+  "imageCount": 9,
+  "createdAt": "2025-08-06T14:21:28.755Z",
+  "images": [
+    {
+      "filename": "assets_task_01jsbvh56te63vdw3zh6yyk3gc_img_0.webp",
+      "path": "/images/one_piece/assets_task_01jsbvh56te63vdw3zh6yyk3gc_img_0.webp",
+      "size": 338566
+    },
+    {
+      "filename": "assets_task_01jsejr3fxe56sy65n6kwagrvt_img_1.webp",
+      "path": "/images/one_piece/assets_task_01jsejr3fxe56sy65n6kwagrvt_img_1.webp",
+      "size": 426030
+    },
+    {
+      "filename": "assets_task_01jsek5b5ce0etnxww0mwraek6_img_3.webp",
+      "path": "/images/one_piece/assets_task_01jsek5b5ce0etnxww0mwraek6_img_3.webp",
+      "size": 451298
+    },
+    {
+      "filename": "assets_task_01jsekaqv1eve8hph6ykdktsa4_img_0.webp",
+      "path": "/images/one_piece/assets_task_01jsekaqv1eve8hph6ykdktsa4_img_0.webp",
+      "size": 202638
+    },
+    {
+      "filename": "assets_task_01jsekg4pqf5mtv3rn1rjnp316_img_0.webp",
+      "path": "/images/one_piece/assets_task_01jsekg4pqf5mtv3rn1rjnp316_img_0.webp",
+      "size": 337608
+    },
+    {
+      "filename": "assets_task_01jset6x8wfnn9202h94qwm275_img_0.webp",
+      "path": "/images/one_piece/assets_task_01jset6x8wfnn9202h94qwm275_img_0.webp",
+      "size": 253944
+    },
+    {
+      "filename": "assets_task_01jsevxpc1eawbwcj44hdtwh0h_img_3.webp",
+      "path": "/images/one_piece/assets_task_01jsevxpc1eawbwcj44hdtwh0h_img_3.webp",
+      "size": 309118
+    },
+    {
+      "filename": "assets_task_01jsextmc5fhhbmrybcqq135vd_img_0.webp",
+      "path": "/images/one_piece/assets_task_01jsextmc5fhhbmrybcqq135vd_img_0.webp",
+      "size": 379894
+    },
+    {
+      "filename": "assets_task_01jskz2086ftkvjzfne9sde658_img_0.webp",
+      "path": "/images/one_piece/assets_task_01jskz2086ftkvjzfne9sde658_img_0.webp",
+      "size": 456652
+    }
+  ]
+}

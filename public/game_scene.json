@@ -1,0 +1,74 @@
+{
+  "name": "game_scene",
+  "displayName": "游戏内景",
+  "cover": "/images/game_scene/assets_task_01jqvsg78nese9fh1fsahwtkpy_img_0.webp",
+  "imageCount": 13,
+  "createdAt": "2025-08-06T14:21:28.777Z",
+  "images": [
+    {
+      "filename": "assets_task_01jqvsg78nese9fh1fsahwtkpy_img_0.webp",
+      "path": "/images/game_scene/assets_task_01jqvsg78nese9fh1fsahwtkpy_img_0.webp",
+      "size": 648246
+    },
+    {
+      "filename": "assets_task_01jqwtypd2fdvsg8grjpghywj0_img_0.webp",
+      "path": "/images/game_scene/assets_task_01jqwtypd2fdvsg8grjpghywj0_img_0.webp",
+      "size": 431464
+    },
+    {
+      "filename": "assets_task_01jqxncn18fq88bjjvmdvy412f_img_0.webp",
+      "path": "/images/game_scene/assets_task_01jqxncn18fq88bjjvmdvy412f_img_0.webp",
+      "size": 351324
+    },
+    {
+      "filename": "assets_task_01jqxnpa9ffp080wfn1csm8hbw_img_1.webp",
+      "path": "/images/game_scene/assets_task_01jqxnpa9ffp080wfn1csm8hbw_img_1.webp",
+      "size": 489502
+    },
+    {
+      "filename": "assets_task_01jqxnpa9ffp080wfn1csm8hbw_img_1_副本.webp",
+      "path": "/images/game_scene/assets_task_01jqxnpa9ffp080wfn1csm8hbw_img_1_副本.webp",
+      "size": 489502
+    },
+    {
+      "filename": "assets_task_01jqyb9skkf51bfhe6s014nbdz_img_0.webp",
+      "path": "/images/game_scene/assets_task_01jqyb9skkf51bfhe6s014nbdz_img_0.webp",
+      "size": 541526
+    },
+    {
+      "filename": "assets_task_01jrzc48d1fkdsfdfmv4rmy2g9_img_1.webp",
+      "path": "/images/game_scene/assets_task_01jrzc48d1fkdsfdfmv4rmy2g9_img_1.webp",
+      "size": 396592
+    },
+    {
+      "filename": "assets_task_01jrzchn1nean8y5fb1exrj6rj_img_0.webp",
+      "path": "/images/game_scene/assets_task_01jrzchn1nean8y5fb1exrj6rj_img_0.webp",
+      "size": 479216
+    },
+    {
+      "filename": "assets_task_01jrzcynwte8qa5ac624rces53_img_1.webp",
+      "path": "/images/game_scene/assets_task_01jrzcynwte8qa5ac624rces53_img_1.webp",
+      "size": 489276
+    },
+    {
+      "filename": "assets_task_01jrzfhpeffrj8c0r2b53s2md9_img_1.webp",
+      "path": "/images/game_scene/assets_task_01jrzfhpeffrj8c0r2b53s2md9_img_1.webp",
+      "size": 343566
+    },
+    {
+      "filename": "assets_task_01jrzfxcqnfagsr7qwzkjj5cdz_img_0.webp",
+      "path": "/images/game_scene/assets_task_01jrzfxcqnfagsr7qwzkjj5cdz_img_0.webp",
+      "size": 443120
+    },
+    {
+      "filename": "assets_task_01jrzgb2vkem08hzvdsvvq4704_img_1.webp",
+      "path": "/images/game_scene/assets_task_01jrzgb2vkem08hzvdsvvq4704_img_1.webp",
+      "size": 390900
+    },
+    {
+      "filename": "assets_task_01jrzggz1nerwvsrfydnhmak2s_img_0.webp",
+      "path": "/images/game_scene/assets_task_01jrzggz1nerwvsrfydnhmak2s_img_0.webp",
+      "size": 404222
+    }
+  ]
+}

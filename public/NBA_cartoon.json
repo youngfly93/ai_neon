@@ -1,15 +1,74 @@
-[
-  { "name": "035bccd6-e5bd-45a2-b232-7ae5ff552e97.png", "url": "/images/NBA_cartoon/035bccd6-e5bd-45a2-b232-7ae5ff552e97.png" },
-  { "name": "0df9218e-b595-4a94-b045-0e670adddbd0.png", "url": "/images/NBA_cartoon/0df9218e-b595-4a94-b045-0e670adddbd0.png" },
-  { "name": "36951939-79cc-4710-b35e-a04022ce320a (1).png", "url": "/images/NBA_cartoon/36951939-79cc-4710-b35e-a04022ce320a (1).png" },
-  { "name": "36951939-79cc-4710-b35e-a04022ce320a.png", "url": "/images/NBA_cartoon/36951939-79cc-4710-b35e-a04022ce320a.png" },
-  { "name": "676e46be-a4a3-4a05-bb82-87290bfd898a.png", "url": "/images/NBA_cartoon/676e46be-a4a3-4a05-bb82-87290bfd898a.png" },
-  { "name": "98f026cb-c564-4c14-81c5-da5206f93fa7.png", "url": "/images/NBA_cartoon/98f026cb-c564-4c14-81c5-da5206f93fa7.png" },
-  { "name": "ae57fd08-d6f1-4f26-b6d6-be7d90bf880d.png", "url": "/images/NBA_cartoon/ae57fd08-d6f1-4f26-b6d6-be7d90bf880d.png" },
-  { "name": "bd8e4e2b-0984-41fa-9990-679955fbae63.png", "url": "/images/NBA_cartoon/bd8e4e2b-0984-41fa-9990-679955fbae63.png" },
-  { "name": "c7a6e2ad-bdb4-49b7-9c3e-1899af55f771 (2).png", "url": "/images/NBA_cartoon/c7a6e2ad-bdb4-49b7-9c3e-1899af55f771 (2).png" },
-  { "name": "d92847e8-a621-4eb5-bbdf-3907a9f2230a.png", "url": "/images/NBA_cartoon/d92847e8-a621-4eb5-bbdf-3907a9f2230a.png" },
-  { "name": "f4042a7f-785b-4c20-8b14-7656db731441.png", "url": "/images/NBA_cartoon/f4042a7f-785b-4c20-8b14-7656db731441.png" },
-  { "name": "f6a43e27-badb-4c66-bc98-03766b35d376.png", "url": "/images/NBA_cartoon/f6a43e27-badb-4c66-bc98-03766b35d376.png" },
-  { "name": "f6b8cbbb-20dd-4b2e-9cbd-4d1a75de67b2.png", "url": "/images/NBA_cartoon/f6b8cbbb-20dd-4b2e-9cbd-4d1a75de67b2.png" }
-]
+{
+  "name": "nba_cartoon",
+  "displayName": "NBA_cartoon",
+  "cover": "/images/nba_cartoon/035bccd6-e5bd-45a2-b232-7ae5ff552e97.png",
+  "imageCount": 13,
+  "createdAt": "2025-08-06T14:21:28.290Z",
+  "images": [
+    {
+      "filename": "035bccd6-e5bd-45a2-b232-7ae5ff552e97.png",
+      "path": "/images/nba_cartoon/035bccd6-e5bd-45a2-b232-7ae5ff552e97.png",
+      "size": 3792635
+    },
+    {
+      "filename": "0df9218e-b595-4a94-b045-0e670adddbd0.png",
+      "path": "/images/nba_cartoon/0df9218e-b595-4a94-b045-0e670adddbd0.png",
+      "size": 3880447
+    },
+    {
+      "filename": "36951939-79cc-4710-b35e-a04022ce320a (1).png",
+      "path": "/images/nba_cartoon/36951939-79cc-4710-b35e-a04022ce320a (1).png",
+      "size": 3941976
+    },
+    {
+      "filename": "36951939-79cc-4710-b35e-a04022ce320a.png",
+      "path": "/images/nba_cartoon/36951939-79cc-4710-b35e-a04022ce320a.png",
+      "size": 3941976
+    },
+    {
+      "filename": "676e46be-a4a3-4a05-bb82-87290bfd898a.png",
+      "path": "/images/nba_cartoon/676e46be-a4a3-4a05-bb82-87290bfd898a.png",
+      "size": 3753599
+    },
+    {
+      "filename": "98f026cb-c564-4c14-81c5-da5206f93fa7.png",
+      "path": "/images/nba_cartoon/98f026cb-c564-4c14-81c5-da5206f93fa7.png",
+      "size": 3822041
+    },
+    {
+      "filename": "ae57fd08-d6f1-4f26-b6d6-be7d90bf880d.png",
+      "path": "/images/nba_cartoon/ae57fd08-d6f1-4f26-b6d6-be7d90bf880d.png",
+      "size": 3697609
+    },
+    {
+      "filename": "bd8e4e2b-0984-41fa-9990-679955fbae63.png",
+      "path": "/images/nba_cartoon/bd8e4e2b-0984-41fa-9990-679955fbae63.png",
+      "size": 3411852
+    },
+    {
+      "filename": "c7a6e2ad-bdb4-49b7-9c3e-1899af55f771 (2).png",
+      "path": "/images/nba_cartoon/c7a6e2ad-bdb4-49b7-9c3e-1899af55f771 (2).png",
+      "size": 3962949
+    },
+    {
+      "filename": "d92847e8-a621-4eb5-bbdf-3907a9f2230a.png",
+      "path": "/images/nba_cartoon/d92847e8-a621-4eb5-bbdf-3907a9f2230a.png",
+      "size": 3446619
+    },
+    {
+      "filename": "f4042a7f-785b-4c20-8b14-7656db731441.png",
+      "path": "/images/nba_cartoon/f4042a7f-785b-4c20-8b14-7656db731441.png",
+      "size": 3873168
+    },
+    {
+      "filename": "f6a43e27-badb-4c66-bc98-03766b35d376.png",
+      "path": "/images/nba_cartoon/f6a43e27-badb-4c66-bc98-03766b35d376.png",
+      "size": 4034983
+    },
+    {
+      "filename": "f6b8cbbb-20dd-4b2e-9cbd-4d1a75de67b2.png",
+      "path": "/images/nba_cartoon/f6b8cbbb-20dd-4b2e-9cbd-4d1a75de67b2.png",
+      "size": 3552812
+    }
+  ]
+}

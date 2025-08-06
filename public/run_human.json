@@ -1,0 +1,54 @@
+{
+  "name": "run_human",
+  "displayName": "奔跑吧人类",
+  "cover": "/images/run_human/assets_task_01jsnkkpbqem7vvdyqr864j8eb_1745555705_img_0.webp",
+  "imageCount": 9,
+  "createdAt": "2025-08-06T14:21:28.667Z",
+  "images": [
+    {
+      "filename": "assets_task_01jsnkkpbqem7vvdyqr864j8eb_1745555705_img_0.webp",
+      "path": "/images/run_human/assets_task_01jsnkkpbqem7vvdyqr864j8eb_1745555705_img_0.webp",
+      "size": 305344
+    },
+    {
+      "filename": "assets_task_01jspme5xsfcbryskh068k8fgn_1745590217_img_0.webp",
+      "path": "/images/run_human/assets_task_01jspme5xsfcbryskh068k8fgn_1745590217_img_0.webp",
+      "size": 398252
+    },
+    {
+      "filename": "assets_task_01jspme5xsfcbryskh068k8fgn_1745590217_img_1.webp",
+      "path": "/images/run_human/assets_task_01jspme5xsfcbryskh068k8fgn_1745590217_img_1.webp",
+      "size": 606038
+    },
+    {
+      "filename": "assets_task_01jspmq1dne5hvpp0t1j6y0q8d_1745590476_img_0.webp",
+      "path": "/images/run_human/assets_task_01jspmq1dne5hvpp0t1j6y0q8d_1745590476_img_0.webp",
+      "size": 472416
+    },
+    {
+      "filename": "assets_task_01jsppabvtf3vbrm9jf2zrw99q_1745592160_img_0 (1).webp",
+      "path": "/images/run_human/assets_task_01jsppabvtf3vbrm9jf2zrw99q_1745592160_img_0 (1).webp",
+      "size": 468730
+    },
+    {
+      "filename": "assets_task_01jsppabvtf3vbrm9jf2zrw99q_1745592160_img_0.webp",
+      "path": "/images/run_human/assets_task_01jsppabvtf3vbrm9jf2zrw99q_1745592160_img_0.webp",
+      "size": 468730
+    },
+    {
+      "filename": "assets_task_01jspqgryefztsnqp93zqws2cr_1745593416_img_0.webp",
+      "path": "/images/run_human/assets_task_01jspqgryefztsnqp93zqws2cr_1745593416_img_0.webp",
+      "size": 449482
+    },
+    {
+      "filename": "assets_task_01jspqskv2frdb82305s41kpty_1745593738_img_1.webp",
+      "path": "/images/run_human/assets_task_01jspqskv2frdb82305s41kpty_1745593738_img_1.webp",
+      "size": 394290
+    },
+    {
+      "filename": "assets_task_01jspr0w0gfcyv42x9qs8tg3b0_1745594071_img_1.webp",
+      "path": "/images/run_human/assets_task_01jspr0w0gfcyv42x9qs8tg3b0_1745594071_img_1.webp",
+      "size": 374322
+    }
+  ]
+}

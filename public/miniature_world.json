@@ -1,0 +1,29 @@
+{
+  "name": "miniature_world",
+  "displayName": "小人国",
+  "cover": "/images/miniature_world/ezgif-1d991dac41fbdf.jpg",
+  "imageCount": 4,
+  "createdAt": "2025-08-06T14:21:28.683Z",
+  "images": [
+    {
+      "filename": "ezgif-1d991dac41fbdf.jpg",
+      "path": "/images/miniature_world/ezgif-1d991dac41fbdf.jpg",
+      "size": 133931
+    },
+    {
+      "filename": "yangfei_1993_A_group_of_tiny_explorers_each_just_5_cm_tall_dres_b10394cb-777c-4f08-bb68-fa2f5a34f9ce.webp",
+      "path": "/images/miniature_world/yangfei_1993_A_group_of_tiny_explorers_each_just_5_cm_tall_dres_b10394cb-777c-4f08-bb68-fa2f5a34f9ce.webp",
+      "size": 567822
+    },
+    {
+      "filename": "yangfei_1993_The_little_bakers_in_white_chefs_uniforms_and_hats_43af838b-8ecd-41cb-9655-6ae5063f4f3d.png",
+      "path": "/images/miniature_world/yangfei_1993_The_little_bakers_in_white_chefs_uniforms_and_hats_43af838b-8ecd-41cb-9655-6ae5063f4f3d.png",
+      "size": 5382061
+    },
+    {
+      "filename": "yangfei_1993_The_little_bakers_in_white_chefs_uniforms_and_hats_43af838b-8ecd-41cb-9655-6ae5063f4f3d.webp",
+      "path": "/images/miniature_world/yangfei_1993_The_little_bakers_in_white_chefs_uniforms_and_hats_43af838b-8ecd-41cb-9655-6ae5063f4f3d.webp",
+      "size": 3933308
+    }
+  ]
+}

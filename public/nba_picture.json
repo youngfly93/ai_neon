@@ -1,0 +1,14 @@
+{
+  "name": "nba_picture",
+  "displayName": "NBA_picture",
+  "cover": "/images/nba_picture/23-lebron-james-andrew-d-bernstein.jpg",
+  "imageCount": 1,
+  "createdAt": "2025-08-06T14:21:28.292Z",
+  "images": [
+    {
+      "filename": "23-lebron-james-andrew-d-bernstein.jpg",
+      "path": "/images/nba_picture/23-lebron-james-andrew-d-bernstein.jpg",
+      "size": 96844
+    }
+  ]
+}

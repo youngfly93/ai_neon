@@ -1,0 +1,14 @@
+{
+  "name": "finger_animal",
+  "displayName": "fingeranimal",
+  "cover": "/images/finger_animal/image.png",
+  "imageCount": 1,
+  "createdAt": "2025-08-06T14:21:28.477Z",
+  "images": [
+    {
+      "filename": "image.png",
+      "path": "/images/finger_animal/image.png",
+      "size": 1208565
+    }
+  ]
+}
