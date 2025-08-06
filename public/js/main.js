@@ -40,21 +40,25 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             showLoading(true);
             
-            // 使用认证令牌获取主题
-            const response = await fetch('/api/themes', {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                },
-                credentials: 'include'
-            });
+            // 首先尝试从静态JSON文件加载（Vercel环境）
+            let response = await fetch('/themes.json');
             
             if (!response.ok) {
-                throw new Error('Failed to fetch themes');
+                // 如果静态文件失败，尝试API
+                response = await fetch('/api/themes', {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    credentials: 'include'
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch themes');
+                }
             }
             
             const themes = await response.json();
             displayThemes(themes);
-            // updateThemeCount(themes.length); // 已移除主题计数器
             
         } catch (error) {
             console.error('Error loading themes:', error);
