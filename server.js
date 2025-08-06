@@ -147,66 +147,16 @@ const backgroundUpload = multer({
     }
 });
 
-// 获取所有主题文件夹
+// API routes for themes (lightweight, serve static JSON when possible)
 app.get('/api/themes', optionalAuth, (req, res) => {
-    try {
-        const themes = [];
-        const items = fs.readdirSync('.');
-        
-        for (const item of items) {
-            const itemPath = path.join('.', item);
-            const stat = fs.statSync(itemPath);
-            
-            if (stat.isDirectory() && !item.startsWith('.') && 
-                item !== 'node_modules' && item !== 'public' && item !== 'api' &&
-                item !== 'models' && item !== 'middleware' && item !== 'routes') {
-                
-                // 获取文件夹中的第一张图片作为封面
-                const files = fs.readdirSync(itemPath);
-                const imageFiles = files.filter(file => 
-                    /\.(jpg|jpeg|png|gif|webp)$/i.test(file)
-                );
-                
-                themes.push({
-                    name: item,
-                    displayName: item,
-                    cover: imageFiles.length > 0 ? `/images/${item}/${imageFiles[0]}` : '/placeholder.svg',
-                    imageCount: imageFiles.length
-                });
-            }
-        }
-        
-        res.json(themes);
-    } catch (error) {
-        console.error('Error reading themes:', error);
-        res.status(500).json({ error: 'Failed to read themes' });
-    }
+    // Redirect to static themes.json for better performance on Vercel
+    res.redirect(301, '/themes.json');
 });
 
-// 获取特定主题下的所有图片
 app.get('/api/themes/:themeName/images', optionalAuth, (req, res) => {
-    try {
-        const themeName = decodeURIComponent(req.params.themeName);
-        const themePath = path.join('.', themeName);
-        
-        if (!fs.existsSync(themePath)) {
-            return res.status(404).json({ error: 'Theme not found' });
-        }
-        
-        const files = fs.readdirSync(themePath);
-        const imageFiles = files
-            .filter(file => /\.(jpg|jpeg|png|gif|webp)$/i.test(file))
-            .map(file => ({
-                name: file,
-                url: `/images/${themeName}/${file}`,
-                path: `${themeName}/${file}`
-            }));
-        
-        res.json(imageFiles);
-    } catch (error) {
-        console.error('Error reading theme images:', error);
-        res.status(500).json({ error: 'Failed to read theme images' });
-    }
+    // Redirect to static theme JSON for better performance on Vercel
+    const themeName = req.params.themeName;
+    res.redirect(301, `/${themeName}.json`);
 });
 
 // 创建新主题 - 需要登录
@@ -420,7 +370,12 @@ app.get('/', (req, res) => {
 
 // 主题详情页路由
 app.get('/theme/:themeName', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'theme.html'));
+    try {
+        res.sendFile(path.join(__dirname, 'public', 'theme.html'));
+    } catch (error) {
+        console.error('Theme page error:', error);
+        res.status(500).send('Theme page unavailable');
+    }
 });
 
 // 管理页面路由 - 需要登录才能访问
@@ -436,6 +391,16 @@ app.get('/admin-panel', (req, res) => {
 // 登录页面路由
 app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
+
+// 健康检查端点
+app.get('/health', (req, res) => {
+    res.json({ 
+        status: 'ok', 
+        timestamp: new Date().toISOString(),
+        themes: 'loaded via static files',
+        db: mongooseAvailable ? 'connected' : 'disabled'
+    });
 });
 
 // 错误处理中间件
