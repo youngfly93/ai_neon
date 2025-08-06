@@ -108,13 +108,19 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             showLoading(true);
             
-            const response = await fetch(`/api/themes/${encodeURIComponent(name)}/images`, {
-                headers: getAuthHeaders(),
-                credentials: 'include'
-            });
+            // 首先尝试从静态JSON文件加载（Vercel环境）
+            let response = await fetch(`/${encodeURIComponent(name)}.json`);
             
             if (!response.ok) {
-                throw new Error('Failed to fetch images');
+                // 如果静态文件失败，尝试API
+                response = await fetch(`/api/themes/${encodeURIComponent(name)}/images`, {
+                    headers: getAuthHeaders(),
+                    credentials: 'include'
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch images');
+                }
             }
             
             const images = await response.json();
