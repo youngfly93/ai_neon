@@ -56,6 +56,15 @@ app.use('/node_modules', express.static('node_modules'));
 // 应用API路由（仅在 MongoDB 可用时）
 if (authRoutes) {
     app.use('/api/auth', authRoutes);
+} else {
+    // 没有数据库时提供基础的认证端点
+    app.get('/api/auth/me', (req, res) => {
+        res.json({ loggedIn: false });
+    });
+    
+    app.post('/api/auth/logout', (req, res) => {
+        res.json({ success: true, message: '已退出登录' });
+    });
 }
 
 // 配置multer用于文件上传

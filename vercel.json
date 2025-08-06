@@ -17,7 +17,7 @@
     { "source": "/login", "destination": "/server.js" },
     { "source": "/register", "destination": "/server.js" },
     { "source": "/theme/(.*)", "destination": "/server.js" },
-    { "source": "/images/(.*)", "destination": "/server.js" },
+    { "source": "/images/(.*)", "destination": "/public/images/$1" },
     { "source": "/(.*)", "destination": "/public/$1" }
   ],
   "headers": [
