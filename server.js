@@ -406,9 +406,15 @@ app.use((error, req, res, next) => {
     res.status(500).json({ error: '服务器内部错误' });
 });
 
-app.listen(PORT, () => {
-    console.log(`🚀 AI NEON'world server running at http://localhost:${PORT}`);
-    console.log(`🎨 Neon-powered file management system is ready!`);
-    console.log(`🛠️  Admin panel available at http://localhost:${PORT}/admin`);
-    console.log(`🔑 Login system enabled - http://localhost:${PORT}/login`);
-}); 
+// 仅在非 Vercel 环境下启动服务器
+if (process.env.VERCEL !== '1') {
+    app.listen(PORT, () => {
+        console.log(`🚀 AI NEON'world server running at http://localhost:${PORT}`);
+        console.log(`🎨 Neon-powered file management system is ready!`);
+        console.log(`🛠️  Admin panel available at http://localhost:${PORT}/admin`);
+        console.log(`🔑 Login system enabled - http://localhost:${PORT}/login`);
+    });
+}
+
+// 导出 app 供 Vercel 使用
+module.exports = app; 
