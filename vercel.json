@@ -4,6 +4,10 @@
     {
       "src": "server.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "public/**",
+      "use": "@vercel/static"
     }
   ],
   "rewrites": [
@@ -12,7 +16,7 @@
     { "source": "/admin", "destination": "/server.js" },
     { "source": "/login", "destination": "/server.js" },
     { "source": "/register", "destination": "/server.js" },
-    { "source": "/theme", "destination": "/server.js" },
+    { "source": "/theme/(.*)", "destination": "/server.js" },
     { "source": "/images/(.*)", "destination": "/server.js" },
     { "source": "/(.*)", "destination": "/public/$1" }
   ],
@@ -34,5 +38,10 @@
         }
       ]
     }
-  ]
+  ],
+  "functions": {
+    "server.js": {
+      "maxDuration": 30
+    }
+  }
 }

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试故障终端</title>
+    <link rel="stylesheet" href="/css/FaultyTerminal.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            color: #fff;
+            font-family: monospace;
+        }
+        .test-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+        .info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            background: rgba(0,0,0,0.8);
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container" id="testContainer">
+        <div class="info">
+            <h3>故障终端测试</h3>
+            <p id="status">正在加载...</p>
+            <button onclick="testTerminal()">测试故障终端</button>
+        </div>
+    </div>
+
+    <script type="module">
+        async function testTerminal() {
+            const statusEl = document.getElementById('status');
+            const container = document.getElementById('testContainer');
+            
+            try {
+                statusEl.textContent = '正在导入 FaultyTerminal...';
+                
+                // 导入 FaultyTerminal
+                const { FaultyTerminal } = await import('/js/FaultyTerminal.js');
+                statusEl.textContent = '导入成功，创建终端实例...';
+                
+                // 清除现有内容
+                const existing = container.querySelector('.faulty-terminal-container');
+                if (existing) existing.remove();
+                
+                // 创建容器
+                const terminalContainer = document.createElement('div');
+                terminalContainer.className = 'faulty-terminal-container';
+                terminalContainer.style.cssText = `
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 1;
+                `;
+                
+                container.appendChild(terminalContainer);
+                
+                // 创建故障终端实例
+                const terminal = new FaultyTerminal(terminalContainer, {
+                    scale: 1.5,
+                    gridMul: [2, 1],
+                    digitSize: 1.2,
+                    timeScale: 1,
+                    pause: false,
+                    scanlineIntensity: 1,
+                    glitchAmount: 1,
+                    flickerAmount: 1,
+                    noiseAmp: 1,
+                    chromaticAberration: 0,
+                    dither: 0,
+                    curvature: 0,
+                    tint: "#00ffff",
+                    mouseReact: true,
+                    mouseStrength: 0.5,
+                    pageLoadAnimation: false,
+                    brightness: 1
+                });
+                
+                statusEl.textContent = '故障终端创建成功！';
+                
+            } catch (error) {
+                console.error('Error:', error);
+                statusEl.textContent = '错误: ' + error.message;
+            }
+        }
+        
+        // 页面加载时自动测试
+        window.addEventListener('load', testTerminal);
+        window.testTerminal = testTerminal;
+    </script>
+</body>
+</html>
