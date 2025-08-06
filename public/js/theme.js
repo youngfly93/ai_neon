@@ -123,7 +123,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
             
-            const images = await response.json();
+            const data = await response.json();
+            // 处理静态JSON文件格式 - 从对象中提取images数组
+            const images = Array.isArray(data) ? data : (data.images || []);
             currentImages = images;
             displayImages(images);
             updateImageCount(images.length);
