@@ -21,22 +21,33 @@ if (MONGO_URI) {
         const mongoose = require('mongoose');
         const cookieParser = require('cookie-parser');
         
-        mongoose.connect(MONGO_URI)
+        // 设置 Mongoose 连接选项
+        mongoose.set('strictQuery', false);
+        
+        mongoose.connect(MONGO_URI, {
+            serverSelectionTimeoutMS: 5000, // 5秒超时
+            socketTimeoutMS: 45000,
+        })
             .then(() => {
                 console.log('📦 MongoDB连接成功');
                 mongooseAvailable = true;
+                
+                // 只有连接成功后才导入路由
+                try {
+                    authRoutes = require('./routes/auth');
+                    authMiddleware = require('./middleware/auth');
+                } catch (importErr) {
+                    console.log('⚠️ 认证模块导入失败，运行在无数据库模式');
+                }
             })
             .catch(err => {
-                console.log('⚠️ MongoDB连接失败，运行在无数据库模式');
+                console.log('⚠️ MongoDB连接失败，运行在无数据库模式', err.message);
                 console.log('💡 登录功能已禁用，所有功能开放访问');
             });
         
-        // 导入路由和中间件
-        authRoutes = require('./routes/auth');
-        authMiddleware = require('./middleware/auth');
         app.use(cookieParser());
     } catch (err) {
-        console.log('⚠️ MongoDB 模块未安装，运行在无数据库模式');
+        console.log('⚠️ MongoDB 模块未安装，运行在无数据库模式', err.message);
         console.log('💡 登录功能已禁用，所有功能开放访问');
     }
 } else {
