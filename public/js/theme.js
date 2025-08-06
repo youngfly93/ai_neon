@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
         card.dataset.imagePath = image.path;
 
         card.innerHTML = `
-            <img src="${image.url}" alt="${image.name}" class="image-thumbnail" loading="lazy">
+            <img src="${image.path || image.url}" alt="${image.filename || image.name}" class="image-thumbnail" loading="lazy">
         `;
 
         // 点击事件
@@ -231,8 +231,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateModalContent() {
         const image = currentImages[currentImageIndex];
-        modalImage.src = image.url;
-        imageName.textContent = image.name;
+        modalImage.src = image.path || image.url;
+        imageName.textContent = image.filename || image.name;
         
         // 更新导航按钮状态
         prevBtn.style.opacity = currentImageIndex > 0 ? '1' : '0.5';
@@ -581,7 +581,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function showDeleteConfirmation(image) {
         imageToDelete = image;
-        deleteMessage.textContent = `确定要删除图片 "${image.name}" 吗？此操作无法撤销。`;
+        deleteMessage.textContent = `确定要删除图片 "${image.filename || image.name}" 吗？此操作无法撤销。`;
         showModal(confirmDeleteModal);
     }
 
