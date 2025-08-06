@@ -1,4 +1,4 @@
-import { Renderer, Program, Mesh, Color, Triangle } from '/node_modules/ogl/src/index.js';
+import { Renderer, Program, Mesh, Color, Triangle } from 'https://cdn.skypack.dev/ogl';
 
 const vertexShader = `
 attribute vec2 position;

@@ -1,4 +1,4 @@
-import { gsap } from '/node_modules/gsap/index.js';
+import { gsap } from 'https://cdn.skypack.dev/gsap';
 
 class Masonry {
     constructor(container, options = {}) {
