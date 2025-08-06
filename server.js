@@ -2,33 +2,61 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
-const mongoose = require('mongoose');
-const cookieParser = require('cookie-parser');
-
 const app = express();
 const PORT = process.env.PORT || 3000;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/ai_neon_world';
+const MONGO_URI = process.env.MONGO_URI || '';
 
-// 连接MongoDB数据库
-mongoose.connect(MONGO_URI)
-  .then(() => console.log('📦 MongoDB连接成功'))
-  .catch(err => console.error('MongoDB连接失败:', err));
+// MongoDB 相关变量
+let mongooseAvailable = false;
+let authRoutes = null;
+let authMiddleware = { 
+    optionalAuth: (req, res, next) => next(),
+    verifyToken: (req, res, next) => next(),
+    isAdmin: (req, res, next) => next()
+};
 
-// 导入路由
-const authRoutes = require('./routes/auth');
+// 尝试连接 MongoDB（如果配置了）
+if (MONGO_URI) {
+    try {
+        const mongoose = require('mongoose');
+        const cookieParser = require('cookie-parser');
+        
+        mongoose.connect(MONGO_URI)
+            .then(() => {
+                console.log('📦 MongoDB连接成功');
+                mongooseAvailable = true;
+            })
+            .catch(err => {
+                console.log('⚠️ MongoDB连接失败，运行在无数据库模式');
+                console.log('💡 登录功能已禁用，所有功能开放访问');
+            });
+        
+        // 导入路由和中间件
+        authRoutes = require('./routes/auth');
+        authMiddleware = require('./middleware/auth');
+        app.use(cookieParser());
+    } catch (err) {
+        console.log('⚠️ MongoDB 模块未安装，运行在无数据库模式');
+        console.log('💡 登录功能已禁用，所有功能开放访问');
+    }
+} else {
+    console.log('ℹ️ 未配置 MongoDB，运行在无数据库模式');
+    console.log('💡 登录功能已禁用，所有功能开放访问');
+}
 
-// 导入中间件
-const { optionalAuth, verifyToken, isAdmin } = require('./middleware/auth');
+// 解构中间件
+const { optionalAuth, verifyToken, isAdmin } = authMiddleware;
 
 // 中间件
 app.use(express.json());
-app.use(cookieParser());
 app.use(express.static('public'));
 app.use('/images', express.static('.'));
 app.use('/node_modules', express.static('node_modules'));
 
-// 应用API路由
-app.use('/api/auth', authRoutes);
+// 应用API路由（仅在 MongoDB 可用时）
+if (authRoutes) {
+    app.use('/api/auth', authRoutes);
+}
 
 // 配置multer用于文件上传
 const storage = multer.diskStorage({
