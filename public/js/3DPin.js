@@ -7,7 +7,7 @@ class ThreeDPin {
     constructor(container, options = {}) {
         this.container = container;
         this.options = {
-            title: options.title || 'AI NEON\'world',
+            title: options.title || '抖音:ai neon(接定制）',
             href: options.href || '#',
             imageUrl: options.imageUrl || '/images/neon.jpg',
             width: options.width || 320,
