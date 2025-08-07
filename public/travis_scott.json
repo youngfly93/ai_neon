@@ -2,13 +2,104 @@
   "name": "travis_scott",
   "displayName": "tavis_scot",
   "description": "AI generated artwork collection featuring Travis Scott themed content",
+  "coverImage": "/images/travis_scott/assets_task_01jtvnvtmnfw9r9p0qyhgjg69a_1746833190_img_1.webp",
   "images": [
     {
-      "name": "assets_task_01jtvnvtmnfw9r9p0qyhgjg69a_1746833190_img_1.webp",
+      "filename": "assets_task_01jtvnvtmnfw9r9p0qyhgjg69a_1746833190_img_1.webp",
       "path": "/images/travis_scott/assets_task_01jtvnvtmnfw9r9p0qyhgjg69a_1746833190_img_1.webp",
-      "size": 299932
+      "size": 139762
+    },
+    {
+      "filename": "assets_task_01jtwvyrq3ezva45swwkjb7xke_1746873129_img_0.webp",
+      "path": "/images/travis_scott/assets_task_01jtwvyrq3ezva45swwkjb7xke_1746873129_img_0.webp",
+      "size": 166428
+    },
+    {
+      "filename": "assets_task_01jtwweaj1ftbvnz5vcxtq9zaw_1746873654_img_1.webp",
+      "path": "/images/travis_scott/assets_task_01jtwweaj1ftbvnz5vcxtq9zaw_1746873654_img_1.webp",
+      "size": 446280
+    },
+    {
+      "filename": "assets_task_01jtwzvnhkfhca6scvzg6rghm3_1746877241_img_2.webp",
+      "path": "/images/travis_scott/assets_task_01jtwzvnhkfhca6scvzg6rghm3_1746877241_img_2.webp",
+      "size": 315900
+    },
+    {
+      "filename": "assets_task_01jtx1bqnhey8r7a53hfph9r3f_1746878817_img_1.webp",
+      "path": "/images/travis_scott/assets_task_01jtx1bqnhey8r7a53hfph9r3f_1746878817_img_1.webp",
+      "size": 374546
+    },
+    {
+      "filename": "assets_task_01jtx6qp4newgsrckj9q1554nv_1746884444_img_0.webp",
+      "path": "/images/travis_scott/assets_task_01jtx6qp4newgsrckj9q1554nv_1746884444_img_0.webp",
+      "size": 345156
+    },
+    {
+      "filename": "assets_task_01jtx6xjfyehj8237ne0gf72rb_1746884635_img_0.webp",
+      "path": "/images/travis_scott/assets_task_01jtx6xjfyehj8237ne0gf72rb_1746884635_img_0.webp",
+      "size": 356970
+    },
+    {
+      "filename": "assets_task_01jtx759b2fdhrqyr8ey0020w3_1746884889_img_1.webp",
+      "path": "/images/travis_scott/assets_task_01jtx759b2fdhrqyr8ey0020w3_1746884889_img_1.webp",
+      "size": 170652
+    },
+    {
+      "filename": "assets_task_01jtx7cexeeys9g7fe5de3k1y2_1746885122_img_0.webp",
+      "path": "/images/travis_scott/assets_task_01jtx7cexeeys9g7fe5de3k1y2_1746885122_img_0.webp",
+      "size": 156652
+    },
+    {
+      "filename": "assets_task_01jtx7j3yqe5a9spk09vtvay3t_1746885308_img_1.webp",
+      "path": "/images/travis_scott/assets_task_01jtx7j3yqe5a9spk09vtvay3t_1746885308_img_1.webp",
+      "size": 130950
+    },
+    {
+      "filename": "assets_task_01jtx7zcgve4qt7jep999e0h0q_1746885752_img_1.webp",
+      "path": "/images/travis_scott/assets_task_01jtx7zcgve4qt7jep999e0h0q_1746885752_img_1.webp",
+      "size": 363364
+    },
+    {
+      "filename": "assets_task_01jtx8tdwjegmvq4vk56m89qpf_1746886673_img_1.webp",
+      "path": "/images/travis_scott/assets_task_01jtx8tdwjegmvq4vk56m89qpf_1746886673_img_1.webp",
+      "size": 325976
+    },
+    {
+      "filename": "assets_task_01jtx9y559exb8pvd6ezx6rk5t_1746887804_img_0.webp",
+      "path": "/images/travis_scott/assets_task_01jtx9y559exb8pvd6ezx6rk5t_1746887804_img_0.webp",
+      "size": 128392
+    },
+    {
+      "filename": "assets_task_01jtxa51s0edes61f74069tmwb_1746888021_img_1.webp",
+      "path": "/images/travis_scott/assets_task_01jtxa51s0edes61f74069tmwb_1746888021_img_1.webp",
+      "size": 138758
+    },
+    {
+      "filename": "assets_task_01jtxa87srf6b8gybrxg6tvapc_1746888134_img_0.webp",
+      "path": "/images/travis_scott/assets_task_01jtxa87srf6b8gybrxg6tvapc_1746888134_img_0.webp",
+      "size": 197728
+    },
+    {
+      "filename": "assets_task_01jtxadmezfwy8w4rz1naxm945_1746888314_img_0.webp",
+      "path": "/images/travis_scott/assets_task_01jtxadmezfwy8w4rz1naxm945_1746888314_img_0.webp",
+      "size": 415416
+    },
+    {
+      "filename": "assets_task_01jtxand1gfnrbkqct84nkfzzg_1746888575_img_0.webp",
+      "path": "/images/travis_scott/assets_task_01jtxand1gfnrbkqct84nkfzzg_1746888575_img_0.webp",
+      "size": 443300
+    },
+    {
+      "filename": "assets_task_01jtxand1gfnrbkqct84nkfzzg_1746888575_img_1.webp",
+      "path": "/images/travis_scott/assets_task_01jtxand1gfnrbkqct84nkfzzg_1746888575_img_1.webp",
+      "size": 426858
+    },
+    {
+      "filename": "assets_task_01jtxav91kfdptsrg0h9pmw4md_1746888774_img_1.webp",
+      "path": "/images/travis_scott/assets_task_01jtxav91kfdptsrg0h9pmw4md_1746888774_img_1.webp",
+      "size": 370692
     }
   ],
   "totalImages": 19,
-  "totalSize": 5976064
+  "totalSize": 5513812
 }
