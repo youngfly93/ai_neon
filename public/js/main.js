@@ -383,7 +383,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (pinContainer && window.ThreeDPin) {
             try {
                 const threeDPin = new ThreeDPin(pinContainer, {
-                    title: '抖音:ai neon(接定制）',
+                    title: 'AI NEON\'world',
+                    hoverTitle: '抖音:ai neon(接定制）',
                     href: '#',
                     imageUrl: '/neon_ai.gif'
                 });

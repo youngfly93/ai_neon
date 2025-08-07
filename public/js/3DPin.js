@@ -7,7 +7,8 @@ class ThreeDPin {
     constructor(container, options = {}) {
         this.container = container;
         this.options = {
-            title: options.title || '抖音:ai neon(接定制）',
+            title: options.title || 'AI NEON\'world',
+            hoverTitle: options.hoverTitle || '抖音:ai neon(接定制）',
             href: options.href || '#',
             imageUrl: options.imageUrl || '/images/neon.jpg',
             width: options.width || 320,
@@ -48,7 +49,7 @@ class ThreeDPin {
                     <!-- 3D透视效果 -->
                     <div class="pin-perspective-overlay">
                         <div class="pin-hover-title">
-                            <span>${this.options.title}</span>
+                            <span>${this.options.hoverTitle}</span>
                         </div>
                         
                         <!-- 动画圆圈 -->
